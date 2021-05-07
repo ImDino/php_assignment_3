@@ -31,13 +31,11 @@ class Database{
     public function select($statement, $input_parameters = []){
         $stmt = $this->execute($statement, $input_parameters);
         return $stmt->fetchAll();
-        // https://www.php.net/manual/en/pdostatement.fetchall
     }
 
     public function insert($statement, $input_parameters = []){
         $this->execute($statement, $input_parameters);
         return $this->conn->lastInsertId();
-        // https://www.php.net/manual/en/pdo.lastinsertid
     }
 
     public function update($statement, $input_parameters = []){

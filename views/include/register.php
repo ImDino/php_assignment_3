@@ -1,4 +1,4 @@
-<form action="/users/register" method="post">    
+<form action="?page=register" method="post">    
     <label for="inputEmail" class="visually-hidden">Email</label>
     <input
         type="email"
