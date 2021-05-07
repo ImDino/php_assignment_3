@@ -1,4 +1,4 @@
-<form action="?page=register" method="post">    
+<form action="#" method="post">    
     <label for="inputEmail" class="visually-hidden">Email</label>
     <input
         type="email"
@@ -8,28 +8,28 @@
         placeholder="Email address"
         required autofocus>
     
-    <label for="inputEmail" class="visually-hidden">First Name</label>
+    <label for="first_name" class="visually-hidden">First Name</label>
     <input
         type="text"
-        id="inputName"
-        name="name"
+        id="first_name"
+        name="first_name"
         class="form-control"
-        placeholder="Name"
+        placeholder="First name"
         required>
         
-    <label for="inputEmail" class="visually-hidden">Last Name</label>
+    <label for="last_name" class="visually-hidden">Last Name</label>
     <input
         type="text"
-        id="inputName"
-        name="name"
+        id="last_name"
+        name="last_name"
         class="form-control"
-        placeholder="Name"
+        placeholder="Last name"
         required>
         
-    <label for="inputPassword" class="visually-hidden">Password</label>
+    <label for="password" class="visually-hidden">Password</label>
     <input
         type="password"
-        id="inputPassword"
+        id="password"
         name="password"
         class="form-control"
         placeholder="Password"

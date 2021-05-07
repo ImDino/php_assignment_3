@@ -52,14 +52,6 @@ class Controller{
     
     private function register(){
         $this->getHeader("Registrera dig");
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $this->model->addNewUer($_POST);
-                // routa till login, skicka meddelande om lyckad registrering
-            } catch (\Throwable $th) {
-                //felmeddelande använd epost eller annat
-            }
-        }
         $this->view->viewRegisterPage();
         $this->getFooter();
     }
