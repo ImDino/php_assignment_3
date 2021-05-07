@@ -8,8 +8,8 @@ class Model{
         $this->db = $database;
     }
 
-    public function fetchAllMovies(){
-        $movies = $this->db->select("SELECT * FROM films");
+    public function fetchAllProducts(){
+        $movies = $this->db->select("SELECT * FROM products");
         return $movies;
     }
 }

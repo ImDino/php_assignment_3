@@ -14,23 +14,23 @@ class View{
         include_once ("views/include/about.php");
     }
 
-    
-
     // Bra att läsa om PHP Templating och HEREDOC syntax!
     // https://css-tricks.com/php-templating-in-just-php/
 
-    public function viewOneMovie($movie)
+    public function viewOneProduct($product)
     {
         $html = <<<HTML
         
             <div class="col-md-6">
                     <div class="card m-1">
-                        <img class="card-img-top" src="images/$movie[image]" 
-                             alt="$movie[title]">
+                        <img class="card-img-top" src="$product[img]" 
+                             alt="$product[name]">
                         <div class="card-body">
                             <div class="card-title text-center">
-                                <h4>$movie[title]</h4>
-                                <h5>Pris: $movie[price] kr</h5>
+                                <h4>$product[name]</h4>
+                                <p>$product[description]</p>
+                                <h5>Pris: $product[price] kr</h5>
+                                <button>Köp</button>
                             </div>
                         </div>
                     </div>
@@ -41,13 +41,10 @@ class View{
         echo $html;
     }
 
-
-    public function viewAllMovies($movies)
+    public function viewAllProducts($products)
     {
-        foreach ($movies as $movie) {
-            $this->viewOneMovie($movie);
+        foreach ($products as $product) {
+            $this->viewOneProduct($product);
         }
     }
-
-
 }

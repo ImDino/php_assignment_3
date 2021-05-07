@@ -22,7 +22,7 @@ class Controller{
                 $this->about();
                 break;
             default:
-                $this->getAllMovies();
+                $this->getAllProducts();
         }
     }
 
@@ -40,10 +40,10 @@ class Controller{
         $this->view->viewFooter();
     }
 
-    private function getAllMovies(){
+    private function getAllProducts(){
         $this->getHeader("Välkommen");
-        $movies = $this->model->fetchAllMovies();
-        $this->view->viewAllMovies($movies);
+        $products = $this->model->fetchAllProducts();
+        $this->view->viewAllProducts($products);
         $this->getFooter();
     }
 
