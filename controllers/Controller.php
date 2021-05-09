@@ -37,8 +37,8 @@ class Controller
             case "admin":
                 $this->admin();
                 break;
-            case "admin_update":
-                $this->admin_update();
+            case "adminUpdate":
+                $this->adminUpdate();
                 break;
             default:
                 $this->getAllProducts();
@@ -81,8 +81,9 @@ class Controller
         $this->getFooter();
     }
 
-    private function admin_update()
+    private function adminUpdate()
     {
+
         $this->getHeader("Admin Update");
         $product = $this->model->fetchOneProduct();
         $this->view->viewAdminUpdatePage($product);

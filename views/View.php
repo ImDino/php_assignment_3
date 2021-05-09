@@ -33,9 +33,9 @@ class View
         include_once("views/include/checkout.php");
     }
 
-    public function viewAdminUpdatePage()
+    public function viewAdminUpdatePage($product)
     {
-        include_once("views/include/admin_update.php");
+        include_once("views/include/adminUpdate.php");
     }
 
     public function viewAdminPage($products)
