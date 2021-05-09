@@ -1,30 +1,59 @@
 <?php
 
-class View{
+class View
+{
 
-    public function viewHeader($title){
-        include_once ("views/include/header.php");
-    }
-
-    public function viewFooter(){
-        include_once ("views/include/footer.php");
+    public function viewHeader($title)
+    {
+        include_once("views/include/header.php");
     }
 
-    public function viewAboutPage(){
-        include_once ("views/include/about.php");
-    }
-    
-    public function viewLoginPage(){
-        include_once ("views/include/login.php");
-    }
-    
-    public function viewRegisterPage(){
-        include_once ("views/include/register.php");
+    public function viewFooter()
+    {
+        include_once("views/include/footer.php");
     }
 
-    public function viewCheckoutPage(){
-        include_once ("views/include/checkout.php");
+    public function viewAboutPage()
+    {
+        include_once("views/include/about.php");
     }
+
+    public function viewLoginPage()
+    {
+        include_once("views/include/login.php");
+    }
+
+    public function viewRegisterPage()
+    {
+        include_once("views/include/register.php");
+    }
+
+    public function viewCheckoutPage()
+    {
+        include_once("views/include/checkout.php");
+    }
+
+    public function viewAdminPage($products)
+    {
+        include_once("views/include/admin.php");
+
+        // echo  $ul = "<ul>";
+        // foreach ($products as $product) {
+        //     $html = <<<HTML
+        //                     <li>$product[name]
+        //                     <a href='#?id=$product[id]' class='btn btn-sm btn-outline-danger'>
+        //                     Tabort</a>
+        //                     <a href='#?id=$product[id]' class='btn btn-sm btn-outline-success'>
+        //                     Redigera</a>
+        //                     </li>
+        //     HTML;
+
+        //     echo $html;
+        // }
+        // echo $ul = "</ul>";
+    }
+
+
 
     public function viewAllProducts($products)
     {
