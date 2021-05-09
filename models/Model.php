@@ -18,5 +18,10 @@ class Model{
         return $addUser;
     }
 
+    public function fetchOneProduct($id){
+        $products = $this->db->select("SELECT * FROM products WHERE id = $id");
+        return $products;
+    }
+
     // validation här eller en annan controller?
 }

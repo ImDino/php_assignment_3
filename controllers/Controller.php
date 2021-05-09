@@ -1,23 +1,27 @@
 <?php
 
-class Controller{
+class Controller
+{
 
     private $model;
     private $view;
 
-    public function __construct($model, $view){
+    public function __construct($model, $view)
+    {
         $this->model = $model;
         $this->view = $view;
     }
 
-    public function main(){
+    public function main()
+    {
         $this->router();
     }
 
-    private function router(){
+    private function router()
+    {
         $page = $_GET['page'] ?? "";
 
-        switch ($page){
+        switch ($page) {
             case "about":
                 $this->about();
                 break;
@@ -33,65 +37,73 @@ class Controller{
             case "admin":
                 $this->admin();
                 break;
-                case "admin_update":
-                    $this->admin_update();
-                    break;
+            case "admin_update":
+                $this->admin_update();
+                break;
             default:
                 $this->getAllProducts();
         }
     }
 
-    private function about(){
+    private function about()
+    {
         $this->getHeader("Om Oss");
         $this->view->viewAboutPage();
         $this->getFooter();
     }
-    
-    private function login(){
+
+    private function login()
+    {
         $this->getHeader("Login");
         $this->view->viewLoginPage();
         $this->getFooter();
     }
-    
-    private function register(){
+
+    private function register()
+    {
         $this->getHeader("Registrera dig");
         $this->view->viewRegisterPage();
         $this->getFooter();
     }
 
-    private function checkout(){
+    private function checkout()
+    {
         $this->getHeader("Kassan");
         $this->view->viewCheckoutPage();
         $this->getFooter();
     }
-    
-    private function admin(){
+
+    private function admin()
+    {
         $this->getHeader("Admin");
         $products = $this->model->fetchAllProducts();
         $this->view->viewAdminPage($products);
         $this->getFooter();
     }
 
-    private function admin_update(){
-        $this->getHeader("Admin");
-        $products = $this->model->fetchAllProducts();
-        $this->view->viewAdminPage($products);
+    private function admin_update()
+    {
+        $this->getHeader("Admin Update");
+        $product = $this->model->fetchOneProduct();
+        $this->view->viewAdminUpdatePage($product);
         $this->getFooter();
     }
 
-    private function getHeader($title){
+    private function getHeader($title)
+    {
         $this->view->viewHeader($title);
     }
 
-    private function getFooter(){
+    private function getFooter()
+    {
         $this->view->viewFooter();
     }
 
-    private function getAllProducts(){
+    private function getAllProducts()
+    {
         $this->getHeader("Välkommen");
         $products = $this->model->fetchAllProducts();
         $this->view->viewAllProducts($products);
         $this->getFooter();
     }
-
 }

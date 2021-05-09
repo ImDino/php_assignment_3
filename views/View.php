@@ -33,6 +33,11 @@ class View
         include_once("views/include/checkout.php");
     }
 
+    public function viewAdminUpdatePage()
+    {
+        include_once("views/include/admin_update.php");
+    }
+
     public function viewAdminPage($products)
     {
         include_once("views/include/admin.php");
