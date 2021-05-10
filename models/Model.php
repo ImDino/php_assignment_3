@@ -22,6 +22,12 @@ class Model
         return $addUser;
     }
 
+    public function createProduct($product)
+    {
+        $addProduct = $this->db->insert("INSERT INTO products (name, description, price) VALUES ('$product[name]', '$product[description]', '$product[price]')");
+        return $addProduct;
+    }
+
     public function fetchOneProduct($id)
     {
         $products = $this->db->select("SELECT * FROM products WHERE id = $id");

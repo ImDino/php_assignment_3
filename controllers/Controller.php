@@ -41,6 +41,9 @@ class Controller
             case "adminUpdate":
                 $this->adminUpdate($id);
                 break;
+            case "adminCreate":
+                $this->adminCreate();
+                break;    
             default:
                 $this->getAllProducts();
         }
@@ -89,6 +92,17 @@ class Controller
         $product = $this->model->fetchOneProduct($id);
         $this->view->viewAdminUpdatePage($product);
         $this->getFooter();
+    }
+
+    private function adminCreate()
+    {
+        $this->getHeader("Admin Create");
+        $this->view->viewAdminCreatePage();
+        $this->getFooter();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $product = $this->model->createProduct();
+        }
+        
     }
 
     private function getHeader($title)

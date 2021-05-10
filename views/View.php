@@ -38,6 +38,12 @@ class View
         include_once("views/include/adminUpdate.php");
     }
 
+    public function viewAdminCreatePage()
+    {
+        include_once("views/include/adminCreate.php");
+    }
+
+
     public function viewAdminPage($products)
     {
         include_once("views/include/admin.php");
