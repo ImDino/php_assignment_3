@@ -16,7 +16,7 @@ foreach ($products as $product) {
     $li = "<li>$product[name]
   <a href='#?id=$product[id]' class='btn btn-sm btn-outline-danger'>
       Tabort</a>
-  <a href='?page=adminUpdate?id=$product[id]' class='btn btn-sm btn-outline-success'>
+  <a href='?page=adminUpdate&id=$product[id]' class='btn btn-sm btn-outline-success'>
       Redigera</a>
   </li>";
     echo $li;
