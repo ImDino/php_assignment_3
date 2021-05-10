@@ -3,7 +3,7 @@
 
 print_r($product); ?>
 
-<form action="#" method="post" class="row">
+<form action="#" method="post">
     <input class="form-control" type="text" value="<?= $product[0]['name'] ?>" >
     <div class="form-group">
         <label for="Beskrivning">Beskrivning</label>
