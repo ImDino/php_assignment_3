@@ -1,14 +1,12 @@
-<h1>Här skapar vi</h1>
-
-<form action="#" method="post">
-    <input class="form-control" type="text" name="name" >
+<form class="mx-auto" action="#" method="post">
+    <input required class="form-control" type="text" name="name" placeholder="Namn">
     <div class="form-group">
-        <label for="Beskrivning">Beskrivning</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="description">
+        <textarea required class="form-control" id="exampleFormControlTextarea1" rows="5" name="description" placeholder="Beskrivning">
         </textarea>
     </div>
-    <input class="form-control" type="number" placeholder="Pris" name="price">
-    <input class="form-control" type="number" placeholder="Lager saldo">
+    <input required class="form-control" type="number" placeholder="Pris" name="price">
+    <input required class="form-control" type="text" placeholder="Bild" name="img">
+    <input required class="form-control" type="number" placeholder="Lager saldo" name="instock">
     <button class="btn btn-primary" type="submit">Submit</button>
 
 </form>

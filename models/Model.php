@@ -22,9 +22,21 @@ class Model
         return $addUser;
     }
 
-    public function createProduct($product)
+    public function createProduct($name, $description, $price, $img, $in_stock)
     {
-        $addProduct = $this->db->insert("INSERT INTO products (name, description, price) VALUES ('$product[name]', '$product[description]', '$product[price]')");
+        $addProduct = $this->db->insert("INSERT INTO products (name, description, price, img, instock) VALUES ('$name', '$description', '$price', '$img', '$in_stock')");
+        return $addProduct;
+    }
+
+    public function deleteProduct($id)
+    {
+        $this->db->insert("DELETE FROM products WHERE id = $id");
+    }
+
+    public function updateProduct($name, $description, $price, $img, $in_stock, $id)
+    {
+        $addProduct = $this->db->update("UPDATE products SET name= '$name', description = '$description', price = '$price', img = '$img', instock = '$in_stock'  WHERE id = '$id'");
+
         return $addProduct;
     }
 

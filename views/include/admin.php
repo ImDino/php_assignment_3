@@ -1,22 +1,16 @@
-<form>
-    <input class="form-control" type="text" placeholder="Produkt namn">
-    <div class="form-group">
-        <label for="Beskrivning">Beskrivning</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-    </div>
-    <input class="form-control" type="number" placeholder="Pris">
-    <input class="form-control" type="number" placeholder="Lager saldo">
-    <button class="btn btn-primary" type="submit">Submit</button>
-
-</form>
+<div>
+    <a href="?page=adminCreate">
+        <button class="btn btn-primary">Lägg till ny produkt</button>
+    </a>
+</div>
 <?php
 
-echo $ul = "<ul>";
+echo $ul = "<ul class='mx-auto'>";
 foreach ($products as $product) {
     $li = "<li>$product[name]
-  <a href='#?id=$product[id]' class='btn btn-sm btn-outline-danger'>
+  <a href='?page=adminDelete&id=$product[id]' class=' btn btn-sm btn-outline-danger'>
       Tabort</a>
-  <a href='?page=adminUpdate&id=$product[id]' class='btn btn-sm btn-outline-success'>
+  <a href='?page=adminUpdate&id=$product[id]' class=' btn btn-sm btn-outline-success'>
       Redigera</a>
   </li>";
     echo $li;

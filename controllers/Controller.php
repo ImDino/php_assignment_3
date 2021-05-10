@@ -43,7 +43,10 @@ class Controller
                 break;
             case "adminCreate":
                 $this->adminCreate();
-                break;    
+                break;
+            case "adminDelete":
+                $this->adminDelete($id);
+                break;
             default:
                 $this->getAllProducts();
         }
@@ -87,6 +90,14 @@ class Controller
 
     private function adminUpdate($id)
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $price = $_POST['price'];
+            $img = $_POST['img'];
+            $in_stock = $_POST['instock'];
+            $this->model->updateProduct($name, $description, $price, $img, $in_stock, $id);
+        }
 
         $this->getHeader("Admin Update");
         $product = $this->model->fetchOneProduct($id);
@@ -96,13 +107,24 @@ class Controller
 
     private function adminCreate()
     {
-        $this->getHeader("Admin Create");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $price = $_POST['price'];
+            $img = $_POST['img'];
+            $in_stock = $_POST['instock'];
+            $this->model->createProduct($name, $description, $price, $img, $in_stock);
+        }
+
+        $this->getHeader("Lägg till ny produkt");
         $this->view->viewAdminCreatePage();
         $this->getFooter();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $product = $this->model->createProduct();
-        }
-        
+    }
+
+    private function adminDelete($id)
+    {
+        $this->model->deleteProduct($id);
+        $this->admin();
     }
 
     private function getHeader($title)
