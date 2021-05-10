@@ -22,9 +22,9 @@ class Model
         return $addUser;
     }
 
-    public function fetchOneProduct()
+    public function fetchOneProduct($id)
     {
-        $products = $this->db->select("SELECT * FROM products WHERE id = 1");
+        $products = $this->db->select("SELECT * FROM products WHERE id = $id");
         return $products;
     }
 

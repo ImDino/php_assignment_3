@@ -20,6 +20,7 @@ class Controller
     private function router()
     {
         $page = $_GET['page'] ?? "";
+        $id = $_GET['id'] ?? "";
 
         switch ($page) {
             case "about":
@@ -38,7 +39,7 @@ class Controller
                 $this->admin();
                 break;
             case "adminUpdate":
-                $this->adminUpdate();
+                $this->adminUpdate($id);
                 break;
             default:
                 $this->getAllProducts();
@@ -81,11 +82,11 @@ class Controller
         $this->getFooter();
     }
 
-    private function adminUpdate()
+    private function adminUpdate($id)
     {
 
         $this->getHeader("Admin Update");
-        $product = $this->model->fetchOneProduct();
+        $product = $this->model->fetchOneProduct($id);
         $this->view->viewAdminUpdatePage($product);
         $this->getFooter();
     }
