@@ -52,6 +52,17 @@ class Controller{
     
     private function register(){
         $this->getHeader("Registrera dig");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $this->model->createUser($_POST);
+                // routa till login, skicka meddelande om lyckad registrering
+            } catch (Exception $e) {
+                $errors = json_decode($e->getMessage());
+                foreach ($errors as $error) {
+                    echo $error;
+                }
+            }
+        }
         $this->view->viewRegisterPage();
         $this->getFooter();
     }

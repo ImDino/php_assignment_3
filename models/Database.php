@@ -45,5 +45,11 @@ class Database{
     public function delete($statement, $input_parameters = []){
         $this->execute($statement, $input_parameters);
     }
+    
+    public function emailExists($email) {
+        if ($this->db->select("SELECT * FROM users WHERE email = '$email'"))
+            return true;
+        return false;
+    }
 
 }

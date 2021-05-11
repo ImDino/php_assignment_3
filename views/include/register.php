@@ -1,4 +1,4 @@
-<form action="#" method="post">    
+<form action="" method="post">    
     <label for="inputEmail" class="visually-hidden">Email</label>
     <input
         type="email"
@@ -6,6 +6,7 @@
         name="email"
         class="form-control"
         placeholder="Email address"
+        value="<?php echo $_POST['email'] ?? ''?>"
         required autofocus>
     
     <label for="first_name" class="visually-hidden">First Name</label>
@@ -15,6 +16,7 @@
         name="first_name"
         class="form-control"
         placeholder="First name"
+        value="<?php echo $_POST['first_name'] ?? ''?>"
         required>
         
     <label for="last_name" class="visually-hidden">Last Name</label>
@@ -24,6 +26,7 @@
         name="last_name"
         class="form-control"
         placeholder="Last name"
+        value="<?php echo $_POST['last_name'] ?? ''?>"
         required>
         
     <label for="password" class="visually-hidden">Password</label>
