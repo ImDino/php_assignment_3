@@ -91,4 +91,25 @@ class View
             echo $html;
         }
     }
+
+    public function viewConfirmMessage()
+    {
+        $html = <<< HTML
+
+                                <div class='my-2 alert alert-success'>
+                                <h4>Allt gick bra</h4>
+                                </div> <!-- col  avslutar Beställningsformulär -->
+                HTML;
+        echo $html;
+    }
+
+    public function viewErrorMessage()
+    {
+        $html = <<< HTML
+                                <div class='my-2 alert alert-danger'>
+                                <h4>Något gick fel försök igen</h4>
+                                </div> <!-- col  avslutar Beställningsformulär -->
+                HTML;
+        echo $html;
+    }
 }

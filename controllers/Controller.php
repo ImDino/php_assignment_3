@@ -91,12 +91,8 @@ class Controller
     private function adminUpdate($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $price = $_POST['price'];
-            $img = $_POST['img'];
-            $in_stock = $_POST['instock'];
-            $this->model->updateProduct($name, $description, $price, $img, $in_stock, $id);
+            $product = $_POST;
+            $this->model->updateProduct($product, $id);
         }
 
         $this->getHeader("Admin Update");
@@ -108,12 +104,14 @@ class Controller
     private function adminCreate()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $price = $_POST['price'];
-            $img = $_POST['img'];
-            $in_stock = $_POST['instock'];
-            $this->model->createProduct($name, $description, $price, $img, $in_stock);
+            $product = $_POST;
+            try {
+                $this->model->createProduct($product);
+                $this->view->viewConfirmMessage();
+                header("location: ?page=admin", true, 200);
+            } catch (\Throwable $th) {
+                $this->view->viewErrorMessage();
+            }
         }
 
         $this->getHeader("Lägg till ny produkt");
@@ -124,6 +122,7 @@ class Controller
     private function adminDelete($id)
     {
         $this->model->deleteProduct($id);
+        $this->view->viewConfirmMessage();
         $this->admin();
     }
 
@@ -143,5 +142,13 @@ class Controller
         $products = $this->model->fetchAllProducts();
         $this->view->viewAllProducts($products);
         $this->getFooter();
+    }
+
+    public function sanitize($text)
+    {
+        $text = trim($text);
+        $text = stripslashes($text);
+        $text = htmlspecialchars($text);
+        return $text;
     }
 }

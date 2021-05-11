@@ -22,9 +22,9 @@ class Model
         return $addUser;
     }
 
-    public function createProduct($name, $description, $price, $img, $in_stock)
+    public function createProduct($product)
     {
-        $addProduct = $this->db->insert("INSERT INTO products (name, description, price, img, instock) VALUES ('$name', '$description', '$price', '$img', '$in_stock')");
+        $addProduct = $this->db->insert("INSERT INTO products (name, description, price, img, instock) VALUES ('$product[name]', '$product[description]', '$product[price]', '$product[img]', '$product[instock]')");
         return $addProduct;
     }
 
@@ -33,9 +33,9 @@ class Model
         $this->db->insert("DELETE FROM products WHERE id = $id");
     }
 
-    public function updateProduct($name, $description, $price, $img, $in_stock, $id)
+    public function updateProduct($product, $id)
     {
-        $addProduct = $this->db->update("UPDATE products SET name= '$name', description = '$description', price = '$price', img = '$img', instock = '$in_stock'  WHERE id = '$id'");
+        $addProduct = $this->db->update("UPDATE products SET name= '$product[name]', description = '$product[description]', price = '$product[price]', img = '$product[img]', instock = '$product[instock]'  WHERE id = '$id'");
 
         return $addProduct;
     }
@@ -45,6 +45,8 @@ class Model
         $products = $this->db->select("SELECT * FROM products WHERE id = $id");
         return $products;
     }
+
+
 
     // validation här eller en annan controller?
 }
