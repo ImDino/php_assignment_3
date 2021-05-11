@@ -47,21 +47,6 @@ class View
     public function viewAdminPage($products)
     {
         include_once("views/include/admin.php");
-
-        // echo  $ul = "<ul>";
-        // foreach ($products as $product) {
-        //     $html = <<<HTML
-        //                     <li>$product[name]
-        //                     <a href='#?id=$product[id]' class='btn btn-sm btn-outline-danger'>
-        //                     Tabort</a>
-        //                     <a href='#?id=$product[id]' class='btn btn-sm btn-outline-success'>
-        //                     Redigera</a>
-        //                     </li>
-        //     HTML;
-
-        //     echo $html;
-        // }
-        // echo $ul = "</ul>";
     }
 
 

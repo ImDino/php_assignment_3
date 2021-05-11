@@ -82,6 +82,10 @@ class Controller
 
     private function admin()
     {
+        if ($_SESSION["confirmMessage"]) {
+            $this->view->viewConfirmMessage();
+            $_SESSION["confirmMessage"] = null;
+        }
         $this->getHeader("Admin");
         $products = $this->model->fetchAllProducts();
         $this->view->viewAdminPage($products);
@@ -92,7 +96,13 @@ class Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product = $_POST;
-            $this->model->updateProduct($product, $id);
+            try {
+                $this->model->updateProduct($product, $id);
+                $_SESSION["confirmMessage"] = true;
+                header("location: ?page=admin");
+            } catch (\Throwable $th) {
+                $this->view->viewErrorMessage();
+            }
         }
 
         $this->getHeader("Admin Update");
@@ -101,14 +111,15 @@ class Controller
         $this->getFooter();
     }
 
+
     private function adminCreate()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product = $_POST;
             try {
                 $this->model->createProduct($product);
-                $this->view->viewConfirmMessage();
-                header("location: ?page=admin", true, 200);
+                $_SESSION["confirmMessage"] = true;
+                header("location: ?page=admin");
             } catch (\Throwable $th) {
                 $this->view->viewErrorMessage();
             }
