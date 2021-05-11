@@ -107,8 +107,9 @@ class Controller
             $product = $_POST;
             try {
                 $this->model->createProduct($product);
-                $this->view->viewConfirmMessage();
+                // session message
                 header("location: ?page=admin", true, 200);
+                $this->view->viewConfirmMessage();
             } catch (\Throwable $th) {
                 $this->view->viewErrorMessage();
             }
