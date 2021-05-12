@@ -54,7 +54,7 @@ class Controller{
         $this->getHeader("Registrera dig");
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                $this->model->createUser($_POST);
+                $this->newUser($_POST);
                 // routa till login, skicka meddelande om lyckad registrering
             } catch (Exception $e) {
                 $errors = json_decode($e->getMessage());
@@ -93,5 +93,16 @@ class Controller{
         $this->view->viewAllProducts($products);
         $this->getFooter();
     }
+    public function newUser($user) {
+        $email = htmlspecialchars($user['email']) ?? null;
+        $firstName = htmlspecialchars($user['first_name']) ?? null;
+        $lastName = htmlspecialchars($user['last_name']) ?? null;
+        $password = htmlspecialchars($user['password']) ?? null;
 
+        if (!$firstName || !$lastName || !$email || !$password || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($this->errors,"Bad request");
+        }
+        if ($password < 6) array_push($this->errors,"Lösenordet måste bestå av minst 6 tecken.");
+        if ($this->db->emailExists($email)) array_push($errors,"Denna epost adress används redan.");
+    }
 }
