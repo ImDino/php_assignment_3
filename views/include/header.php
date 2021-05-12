@@ -24,9 +24,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="?page=checkout">Kundkorg</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?page=admin">Admin</a>
+                </li>
             </ul>
         </div>
     </nav>
     <h2 class="text-center"><?php echo $title; ?></h2>
     <div class="row">
-    
