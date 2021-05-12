@@ -13,12 +13,8 @@ class Model{
         return $products;
     }
     
-    public function createUser($user){
-        $this->validator->newUser($user);
-        print_r($this->validator->errors);
-        //email exists (database)
-
-
+    public function createUser($user)
+    {
         try {
             $this->db->insert("INSERT INTO users (email, password, first_name, last_name) VALUES ('$user[email]', '$user[password]', '$user[first_name]', '$user[last_name]')");
         } catch (Exception $e) {
