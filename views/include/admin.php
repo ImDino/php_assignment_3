@@ -2,6 +2,9 @@
     <a href="?page=adminCreate">
         <button class="btn btn-primary">Lägg till ny produkt</button>
     </a>
+    <a href="?page=adminOrders">
+        <button class="btn btn-primary">Ordrar</button>
+    </a>
 </div>
 <?php
 

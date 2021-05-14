@@ -43,6 +43,11 @@ class View
         include_once("views/include/adminCreate.php");
     }
 
+    public function adminAllOrdersPage($orders)
+    {
+        include_once("views/include/adminOrders.php");
+    }
+
 
     public function viewAdminPage($products)
     {

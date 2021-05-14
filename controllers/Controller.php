@@ -47,6 +47,12 @@ class Controller
             case "adminDelete":
                 $this->adminDelete($id);
                 break;
+            case "adminOrders":
+                $this->adminOrders($id);
+                break;
+            case "adminUpdateOrder":
+                $this->adminUpdateOrder($id);
+                break;
             default:
                 $this->getAllProducts();
         }
@@ -135,6 +141,22 @@ class Controller
         $this->model->deleteProduct($id);
         $this->view->viewConfirmMessage();
         $this->admin();
+    }
+
+    private function adminOrders()
+    {
+        $this->getHeader("Alla ordrar");
+        $orders = $this->model->fetchAllOrders();
+        $this->view->adminAllOrdersPage($orders);
+        $this->getFooter();
+    }
+    private function adminUpdateOrder($id)
+    {
+        $this->model->updateOrder($id);
+        $this->getHeader("Alla ordrar");
+        $orders = $this->model->fetchAllOrders();
+        $this->view->adminAllOrdersPage($orders);
+        $this->getFooter();
     }
 
     private function getHeader($title)
