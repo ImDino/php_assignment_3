@@ -143,16 +143,16 @@ class Controller
         $this->admin();
     }
 
-    private function adminOrders()
+    private function adminOrders($id)
     {
-        $this->getHeader("Alla ordrar");
-        $orders = $this->model->fetchAllOrders();
-        $this->view->adminAllOrdersPage($orders);
-        $this->getFooter();
-    }
-    private function adminUpdateOrder($id)
-    {
-        $this->model->updateOrder($id);
+        if ($id) {
+            $this->view->viewConfirmMessage();
+            $this->model->updateOrder($id);
+            $this->getHeader("Alla ordrar");
+            $orders = $this->model->fetchAllOrders();
+            $this->view->adminAllOrdersPage($orders);
+            $this->getFooter();
+        }
         $this->getHeader("Alla ordrar");
         $orders = $this->model->fetchAllOrders();
         $this->view->adminAllOrdersPage($orders);
