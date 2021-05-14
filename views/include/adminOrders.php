@@ -23,7 +23,7 @@ for ($i = 0; $i < count($orders); $i++) {
         echo "Produkter: " . $products['key'] . "<br/>";
         echo "Totalt: " . $orders[$i]['total'] . " SEK" . "<br/>";
         echo $orders[$i]['is_sent'] ? "Status 1" : " Status 0" . "<br/>";
-        echo "<a href='?page=adminUpdateOrder&id=$id'>
+        echo "<a href='?page=adminOrders&id=$id'>
             Ändra till skickad</a>" . "<br/>";
         echo "</div>";
         echo "<br>";
