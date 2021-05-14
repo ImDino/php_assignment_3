@@ -50,9 +50,6 @@ class Controller
             case "adminOrders":
                 $this->adminOrders($id);
                 break;
-            case "adminUpdateOrder":
-                $this->adminUpdateOrder($id);
-                break;
             default:
                 $this->getAllProducts();
         }
