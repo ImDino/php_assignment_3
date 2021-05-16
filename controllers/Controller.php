@@ -1,108 +1,182 @@
 <?php
-
-class Controller{
-
+class Controller
+{
     private $model;
     private $view;
-
-    public function __construct($model, $view){
+    
+    public function __construct($model, $view)
+    {
         $this->model = $model;
         $this->view = $view;
     }
 
-    public function main(){
+    public function main()
+    {
         $this->router();
+        
+        $msgTrigger = $_GET['msgTrigger'] ?? null;
+        if ($msgTrigger) {
+            $this->checkMsg();
+        }
     }
 
-    private function router(){
-        $page = $_GET['page'] ?? "";
+    private function router()
+    {
+        $page = $_GET['page'] ?? '';
+        $id = $_GET['id'] ?? '';
 
-        switch ($page){
-            case "about":
+        switch ($page) {
+            case 'about':
                 $this->about();
                 break;
-            case "checkout":
+            case 'checkout':
                 $this->checkout();
                 break;
-            case "login":
+            case 'login':
                 $this->login();
                 break;
-            case "register":
+            case 'register':
                 $this->register();
                 break;
-            case "admin":
+            case 'admin':
                 $this->admin();
+                break;
+            case 'adminUpdate':
+                $this->adminUpdate($id);
+                break;
+            case 'adminCreate':
+                $this->adminCreate();
+                break;
+            case 'adminDelete':
+                $this->adminDelete($id);
                 break;
             default:
                 $this->getAllProducts();
         }
     }
 
-    private function about(){
-        $this->getHeader("Om Oss");
-        $this->view->viewAboutPage();
+    private function checkMsg()
+    {
+        $confirmMsg = $_SESSION['confirmMsg'] ?? null;
+        
+        if ($confirmMsg) {
+            $this->view->confirmMsg($confirmMsg);
+            $_SESSION['confirmMsg'] = null;
+        }
+    }
+
+    private function about()
+    {
+        $this->getHeader('Om Oss');
+        $this->view->AboutPage();
         $this->getFooter();
     }
-    
-    private function login(){
-        $this->getHeader("Login");
-        $this->view->viewLoginPage();
+
+    private function login()
+    {
+        $this->getHeader('Login');
+        $this->view->LoginPage();
         $this->getFooter();
     }
-    
-    private function register(){
-        $this->getHeader("Registrera dig");
+
+    private function register()
+    {
+        $this->getHeader('Registrera dig');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                $this->newUser($_POST);
-                // routa till login, skicka meddelande om lyckad registrering
+                $this->model->createUser($_POST);
+                $_SESSION['confirmMsg'] = 'Ny användare skapad!';
+                header('location: ?page=login&msgTrigger=true');
             } catch (Exception $e) {
-                $errors = json_decode($e->getMessage());
-                foreach ($errors as $error) {
-                    echo $error;
-                }
+                $this->view->errorMsg();
             }
         }
-        $this->view->viewRegisterPage();
+        $this->view->RegisterPage();
         $this->getFooter();
     }
 
-    private function checkout(){
-        $this->getHeader("Kassan");
-        $this->view->viewCheckoutPage();
+    private function checkout()
+    {
+        $this->getHeader('Kassan');
+        $this->view->checkoutPage();
+        $this->getFooter();
+    }
+
+    private function admin()
+    {
+        $this->getHeader('Admin');
+        $products = $this->model->fetchAllProducts();
+        $this->view->adminPage($products);
+        $this->getFooter();
+    }
+
+    private function adminUpdate($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product = $_POST;
+            try {
+                $this->model->updateProduct($product, $id);
+                $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
+                header('location: ?page=admin&msgTrigger=true');
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
+
+        $this->getHeader('Admin Update');
+        $product = $this->model->fetchOneProduct($id);
+        $this->view->adminUpdatePage($product);
+        $this->getFooter();
+    }
+
+    private function adminCreate()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product = $_POST;
+            try {
+                $this->model->createProduct($product);
+                $_SESSION['confirmMsg'] = 'Ny artikel skapad!';
+                header('location: ?page=admin&msgTrigger=true');
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
+        
+        $this->getHeader('Lägg till ny produkt');
+        $this->view->adminCreatePage();
         $this->getFooter();
     }
     
-    private function admin(){
-        $this->getHeader("Admin");
-        $this->view->viewAdminPage();
-        $this->getFooter();
-    }
-
-    private function getHeader($title){
-        $this->view->viewHeader($title);
-    }
-
-    private function getFooter(){
-        $this->view->viewFooter();
-    }
-
-    private function getAllProducts(){
-        $this->getHeader("Välkommen");
-        $products = $this->model->fetchAllProducts();
-        $this->view->viewAllProducts($products);
-        $this->getFooter();
-    }
-    public function newUser($user) {
-        $email = htmlspecialchars($user['email']) ?? null;
-        $firstName = htmlspecialchars($user['first_name']) ?? null;
-        $lastName = htmlspecialchars($user['last_name']) ?? null;
-        $password = htmlspecialchars($user['password']) ?? null;
-
-        if (!$firstName || !$lastName || !$email || !$password || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($this->errors,"Bad request");
+    private function adminDelete($id)
+    {
+        try {
+            $this->model->deleteProduct($id);
+            $_SESSION['confirmMsg'] = 'Artikel borttagen';
+            header('location: ?page=admin&msgTrigger=true');
+        } catch (\Throwable $th) {
+            $this->view->errorMsg();
         }
-        if ($password < 6) array_push($this->errors,"Lösenordet måste bestå av minst 6 tecken.");
-        if ($this->db->emailExists($email)) array_push($errors,"Denna epost adress används redan.");
+    }
+
+    private function getHeader($title)
+    {
+        $this->view->header($title);
+    }
+
+    private function getFooter()
+    {
+        $this->view->footer();
+    }
+
+    private function getAllProducts()
+    {
+        $this->getHeader('Välkommen');
+        try {
+            $products = $this->model->fetchAllProducts();
+        } catch (\Throwable $th) {
+            $this->view->errorMsg();
+        }
+        $this->view->allProducts($products);
+        $this->getFooter();
     }
 }

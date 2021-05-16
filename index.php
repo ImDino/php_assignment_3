@@ -1,7 +1,7 @@
 <?php
+session_start();
 
 require_once ("models/Database.php");
-require_once ("controllers/Validator.php");
 require_once ("models/Model.php");
 require_once ("views/View.php");
 require_once ("controllers/Controller.php");
