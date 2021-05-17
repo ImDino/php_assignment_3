@@ -12,6 +12,7 @@ class Controller
 
     public function main()
     {
+        $this->model->createCart();
         $this->router();
         
         $msgTrigger = $_GET['msgTrigger'] ?? null;
@@ -98,7 +99,22 @@ class Controller
     private function checkout()
     {
         $this->getHeader('Kassan');
-        $this->view->checkoutPage();
+        
+        if (isset($_GET['removeFromCart'])) {
+            if (($key = array_search($_GET['removeFromCart'], $_SESSION['cart'])) !== false) {
+                unset($_SESSION['cart'][$key]);
+            }
+        }
+        
+        if (!empty($_SESSION['cart'])) {
+            $products = array();
+            foreach ($_SESSION['cart'] as $productID) {
+                $product = $this->model->fetchOneProduct($productID);
+                array_push($products, $product);
+            }
+            $this->view->checkoutPage($products);
+        } else $this->view->checkoutPage();
+        
         $this->getFooter();
     }
 
@@ -170,6 +186,9 @@ class Controller
 
     private function getAllProducts()
     {
+        if (isset($_GET['addToCart'])) {
+            array_push($_SESSION['cart'], $_GET['addToCart']);
+        }
         $this->getHeader('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();

@@ -44,8 +44,8 @@ class Model{
 
     public function fetchOneProduct($id)
     {
-        $products = $this->db->select("SELECT * FROM products WHERE id = $id");
-        return $products;
+        $product = $this->db->select("SELECT * FROM products WHERE id = $id")[0];
+        return $product;
     }
 
     public function userIsValid($user)
@@ -63,5 +63,12 @@ class Model{
         $text = stripslashes($text);
         $text = htmlspecialchars($text);
         return $text;
+    }
+
+    public function createCart() {
+        if (isset($_SESSION['cart'])) {
+            return;
+        }
+        $_SESSION['cart'] = [];
     }
 }

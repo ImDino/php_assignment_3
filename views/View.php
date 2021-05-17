@@ -27,9 +27,30 @@ class View
         include_once('views/include/register.php');
     }
 
-    public function checkoutPage()
+    public function checkoutPage($products = array())
     {
-        include_once('views/include/checkout.php');
+        foreach ($products as $product) {
+            extract($product);
+            $html = <<<HTML
+            <div class="col-md-6">
+                <div class="card m-1">
+                    <img class="card-img-top" src="$img" 
+                            alt="$name">
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <h4>$name</h4>
+                            <p>$description</p>
+                            <h5>Pris: $price kr</h5>
+                            <a href="?page=checkout&removeFromCart=$id" class="btn btn-primary">Ta bort</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            HTML;
+            
+            echo $html;
+        }
+        //echo "<a class='btn btn-primary' href='?'>Beställ</a>";
     }
 
     public function adminUpdatePage($product)
@@ -50,23 +71,22 @@ class View
     public function allProducts($products)
     {
         foreach ($products as $product) {
+            extract($product);
             $html = <<<HTML
-        
             <div class="col-md-6">
                 <div class="card m-1">
-                    <img class="card-img-top" src="$product[img]" 
-                            alt="$product[name]">
+                    <img class="card-img-top" src="$img" 
+                            alt="$name">
                     <div class="card-body">
                         <div class="card-title text-center">
-                            <h4>$product[name]</h4>
-                            <p>$product[description]</p>
-                            <h5>Pris: $product[price] kr</h5>
-                            <button>Köp</button>
+                            <h4>$name</h4>
+                            <p>$description</p>
+                            <h5>Pris: $price kr</h5>
+                            <a href="?addToCart=$id" class="btn btn-primary">Köp</a>
                         </div>
                     </div>
                 </div>
-            </div>  <!-- col -->
-
+            </div>
             HTML;
 
             echo $html;
