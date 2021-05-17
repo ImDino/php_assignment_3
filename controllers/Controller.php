@@ -21,6 +21,17 @@ class Controller
         }
     }
 
+    /*
+    TODO session variabeln cart ska istället ha artikel id som nyckel och värde som antal
+    TODO check if admin
+    TODO lägg beställningen (kolla om man är inloggad bl a)
+    TODO logga ut
+    
+    Rikard
+    TODO orderhistorik i order-vyn med möjlighet att ta tillbaka "skickad" beställning
+    TODO sub-meny i order sidan för "all - sent - not sent"
+    */
+
     private function router()
     {
         $page = $_GET['page'] ?? '';
@@ -221,8 +232,15 @@ class Controller
     private function getAllProducts()
     {
         if (isset($_GET['addToCart'])) {
-            array_push($_SESSION['cart'], $_GET['addToCart']);
+            $product = $_GET['addToCart'];
+            $cart = $_SESSION['cart'];
+            if (!array_key_exists($product, $cart)) {
+                $_SESSION['cart'][$product] ++;
+            } else {
+                $_SESSION['cart'][$product] = 1;
+            }
         }
+
         $this->getHeader('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();

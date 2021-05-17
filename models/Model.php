@@ -88,6 +88,6 @@ class Model
         if (isset($_SESSION['cart'])) {
             return;
         }
-        $_SESSION['cart'] = [];
+        $_SESSION['cart'] = array();
     }
 }
