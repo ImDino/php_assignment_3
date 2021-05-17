@@ -31,6 +31,11 @@ class Model
         return $addProduct;
     }
     
+    public function createOrder($user_id, $products, $total)
+    {
+        $this->db->insert("INSERT INTO orders (user_id, products, total) VALUES ('$user_id', '$products', '$total')");
+    }
+
     public function deleteProduct($id)
     {
         $this->db->insert("DELETE FROM products WHERE id = $id");
@@ -52,7 +57,7 @@ class Model
     public function fetchOneProduct($id)
     {
         $data = $this->db->select("SELECT * FROM products WHERE id = $id");
-        return $data ? $data[0] : $data;
+        return $data ? $data[0] : array(); // REVIEW kan man köra null ist?
     }
 
     public function userIsValid($user)
@@ -67,7 +72,7 @@ class Model
     public function getUser($email)
     {
         $data = $this->db->select("SELECT * FROM users WHERE email = '$email'");
-        return $data ? $data[0] : $data;
+        return $data ? $data[0] : array(); // REVIEW kan man köra null ist?
     }
     
     public function fetchAllOrders()

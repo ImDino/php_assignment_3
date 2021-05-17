@@ -14,13 +14,16 @@
     <title><?php echo $title; ?> - PHP Butiken</title>
 </head>
 
+<?php
+$email = $_SESSION['email'] ?? null;
+$isAdmin = $_SESSION['isAdmin'] ?? null;
+?>
+
 <body class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.php">PHP Butiken</a>
         <?php
-        if ($_SESSION['email']) {
-            echo "($_SESSION[email])";
-        }
+        echo $email ? $email : '';
         ?>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,15 +31,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php 
-                echo !$_SESSION['email']
-                ?
-                "<li class='nav-item'>
-                    <a class='nav-link' href='?page=login'>Logga in</a>
-                </li>"
-                :
-                "<li class='nav-item'>
-                    <a class='nav-link' href='?page=logout'>Logga ut</a>
-                </li>";
+
+                echo !$email 
+                    ?
+                    "<li class='nav-item'>
+                        <a class='nav-link' href='?page=login'>Logga in</a>
+                    </li>"
+                    :
+                    "<li class='nav-item'>
+                        <a class='nav-link' href='?page=logout'>Logga ut</a>
+                    </li>";
                 ?>
 
                 <li class="nav-item">
@@ -44,7 +48,7 @@
                 </li>
 
                 <?php
-                if ($_SESSION['isAdmin']) {
+                if ($isAdmin) {
                     echo "<li class='nav-item'>
                             <a class='nav-link' href='?page=admin'>Admin</a>
                         </li>";

@@ -23,6 +23,8 @@ class Controller
 
     /*
     TODO lägg beställningen (kolla om man är inloggad bl a)
+    TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Other?
+    TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect
     */
 
     private function router()
@@ -36,6 +38,9 @@ class Controller
                 break;
             case 'checkout':
                 $this->checkout();
+                break;
+            case 'placeOrder':
+                $this->placeOrder();
                 break;
             case 'login':
                 $this->login();
@@ -91,8 +96,9 @@ class Controller
                 if (!$user) {
                     $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
                 } else {
-                    $_SESSION['name'] = $user['name'];
+                    $_SESSION['name'] = $user['first_name'];
                     $_SESSION['email'] = $user['email'];
+                    $_SESSION['id'] = $user['id'];
                     $_SESSION['isAdmin'] = $user['is_admin'];
                     $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
                     header('location: ?msgTrigger=true');
@@ -100,7 +106,7 @@ class Controller
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
-        } else if ($_SESSION['email']) {
+        } else if (isset($_SESSION['email']) && $_SESSION['email']) {
             header('location: index.php');
         }
         $this->getHeader('Login');
@@ -109,6 +115,7 @@ class Controller
     }
 
     private function logout() {
+        $_SESSION['id'] = null;
         $_SESSION['name'] = null;
         $_SESSION['email'] = null;
         $_SESSION['isAdmin'] = null;
@@ -135,20 +142,26 @@ class Controller
     private function checkout()
     {
         $this->getHeader('Kassan');
-        
         if (isset($_GET['removeFromCart'])) {
-            if (($key = array_search($_GET['removeFromCart'], $_SESSION['cart'])) !== false) {
-                unset($_SESSION['cart'][$key]);
+            $productID = $_GET['removeFromCart'];
+            if (array_key_exists($productID, $_SESSION['cart'])) {
+                $_SESSION['cart'][$productID]--;
+                if ($_SESSION['cart'][$productID] == 0) {
+                    unset($_SESSION['cart'][$productID]);
+                }
             }
         }
         
         if (!empty($_SESSION['cart'])) {
+            $total = 0;
             $products = array();
-            foreach ($_SESSION['cart'] as $productID) {
+            foreach ($_SESSION['cart'] as $productID => $quantity) {
                 $product = $this->model->fetchOneProduct($productID);
+                $product['quantity'] = $quantity;
                 array_push($products, $product);
+                $total += $product['price']*$quantity;
             }
-            $this->view->checkoutPage($products);
+            $this->view->checkoutPage($products, $total);
         } else $this->view->checkoutPage();
         
         $this->getFooter();
@@ -237,18 +250,52 @@ class Controller
         $this->view->footer();
     }
 
+    private function placeOrder() {
+        if (empty($_SESSION['cart'])) {
+            header('location: index.php');
+        }
+        if (!isset($_SESSION['email']) && !$_SESSION['email']) {
+            $_SESSION['confirmMsg'] = 'Vänligen logga in för att beställa din order!';
+            header('location: ?page=login&msgTrigger=true');
+        } else {
+            $total = 0;
+            $productsView = array();
+            
+            foreach ($_SESSION['cart'] as $productID => $quantity) {
+                $product = $this->model->fetchOneProduct($productID);
+                $product['quantity'] = $quantity;
+                array_push($productsView, $product);
+                $total += $product['price']*$quantity;
+            }
+            [{
+                id: 1,
+                qty: 3
+            },
+            {
+
+            }]
+            try {
+                $this->model->createOrder($_SESSION['id'], json_encode($_SESSION['cart']), $total);
+                $_SESSION['cart'] = array();
+                $_SESSION['confirmMsg'] = 'Din order är beställd!';
+                header('location: index.php?msgTrigger=true');
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
+    }
+
     private function getAllProducts()
     {
         if (isset($_GET['addToCart'])) {
-            $product = $_GET['addToCart'];
+            $productID = $_GET['addToCart'];
             $cart = $_SESSION['cart'];
-            if (!array_key_exists($product, $cart)) {
-                $_SESSION['cart'][$product] ++;
+            if (array_key_exists($productID, $cart)) {
+                $_SESSION['cart'][$productID] ++;
             } else {
-                $_SESSION['cart'][$product] = 1;
+                $_SESSION['cart'][$productID] = 1;
             }
         }
-
         $this->getHeader('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();
