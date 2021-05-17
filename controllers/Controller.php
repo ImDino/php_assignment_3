@@ -22,14 +22,10 @@ class Controller
     }
 
     /*
-    TODO session variabeln cart ska istället ha artikel id som nyckel och värde som antal
-    TODO check if admin
     TODO lägg beställningen (kolla om man är inloggad bl a)
-    TODO logga ut
-    
-    Rikard
-    TODO orderhistorik i order-vyn med möjlighet att ta tillbaka "skickad" beställning
-    TODO sub-meny i order sidan för "all - sent - not sent"
+    TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Other?
+    TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect till index.php.
+    TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
     */
 
     private function router()
@@ -44,8 +40,14 @@ class Controller
             case 'checkout':
                 $this->checkout();
                 break;
+            case 'placeOrder':
+                $this->placeOrder();
+                break;
             case 'login':
                 $this->login();
+                break;
+            case "logout":
+                $this->logout();
                 break;
             case 'register':
                 $this->register();
@@ -89,23 +91,37 @@ class Controller
 
     private function login()
     {
-        $this->getHeader('Login');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $user = $this->model->getUser($_POST['email']);
                 if (!$user) {
                     $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
                 } else {
-                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['name'] = $user['first_name'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['isAdmin'] = $user['is_admin'];
                     $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
                     header('location: ?msgTrigger=true');
                 }
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
+        } else if (isset($_SESSION['email']) && $_SESSION['email']) {
+            header('location: index.php');
         }
+        $this->getHeader('Login');
         $this->view->LoginPage();
         $this->getFooter();
+    }
+
+    private function logout() {
+        $_SESSION['id'] = null;
+        $_SESSION['name'] = null;
+        $_SESSION['email'] = null;
+        $_SESSION['isAdmin'] = null;
+        $_SESSION['confirmMsg'] = "Du är nu utloggad!";
+        header('location: ?msgTrigger=true');
     }
 
     private function register()
@@ -127,20 +143,26 @@ class Controller
     private function checkout()
     {
         $this->getHeader('Kassan');
-        
         if (isset($_GET['removeFromCart'])) {
-            if (($key = array_search($_GET['removeFromCart'], $_SESSION['cart'])) !== false) {
-                unset($_SESSION['cart'][$key]);
+            $productID = $_GET['removeFromCart'];
+            if (array_key_exists($productID, $_SESSION['cart'])) {
+                $_SESSION['cart'][$productID]--;
+                if ($_SESSION['cart'][$productID] == 0) {
+                    unset($_SESSION['cart'][$productID]);
+                }
             }
         }
         
         if (!empty($_SESSION['cart'])) {
+            $total = 0;
             $products = array();
-            foreach ($_SESSION['cart'] as $productID) {
+            foreach ($_SESSION['cart'] as $productID => $quantity) {
                 $product = $this->model->fetchOneProduct($productID);
+                $product['quantity'] = $quantity;
                 array_push($products, $product);
+                $total += $product['price']*$quantity;
             }
-            $this->view->checkoutPage($products);
+            $this->view->checkoutPage($products, $total);
         } else $this->view->checkoutPage();
         
         $this->getFooter();
@@ -237,18 +259,51 @@ class Controller
         $this->view->footer();
     }
 
+    private function placeOrder() {
+        if (empty($_SESSION['cart'])) {
+            header('location: index.php');
+        }
+        if (!isset($_SESSION['email']) && !$_SESSION['email']) {
+            $_SESSION['confirmMsg'] = 'Vänligen logga in för att beställa din order!';
+            header('location: ?page=login&msgTrigger=true');
+        } else {
+            $total = 0;
+            $productsView = array();
+            $productsDB = array();
+            
+            foreach ($_SESSION['cart'] as $productID => $quantity) {
+                $productView = $this->model->fetchOneProduct($productID);
+                $productView['quantity'] = $quantity;
+                array_push($productsView, $productView);
+                
+                $productDB = array('id' => $productID, 'qty' => $quantity);
+                array_push($productsDB, $productDB);
+
+                $total += $productView['price']*$quantity;
+            }
+
+            try {
+                $this->model->createOrder($_SESSION['id'], json_encode($productsDB), $total);
+                $_SESSION['cart'] = array();
+                $_SESSION['confirmMsg'] = 'Din order är beställd!';
+                header('location: index.php?msgTrigger=true');
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
+    }
+
     private function getAllProducts()
     {
         if (isset($_GET['addToCart'])) {
-            $product = $_GET['addToCart'];
+            $productID = $_GET['addToCart'];
             $cart = $_SESSION['cart'];
-            if (!array_key_exists($product, $cart)) {
-                $_SESSION['cart'][$product] ++;
+            if (array_key_exists($productID, $cart)) {
+                $_SESSION['cart'][$productID] ++;
             } else {
-                $_SESSION['cart'][$product] = 1;
+                $_SESSION['cart'][$productID] = 1;
             }
         }
-
         $this->getHeader('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();

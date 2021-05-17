@@ -27,7 +27,7 @@ class View
         include_once('views/include/register.php');
     }
 
-    public function checkoutPage($products = array())
+    public function checkoutPage($products = array(), $total = 0)
     {
         foreach ($products as $product) {
             extract($product);
@@ -40,6 +40,7 @@ class View
                         <div class="card-title text-center">
                             <h4>$name</h4>
                             <p>$description</p>
+                            <p>Antal: $quantity</p>
                             <h5>Pris: $price kr</h5>
                             <a href="?page=checkout&removeFromCart=$id" class="btn btn-primary">Ta bort</a>
                         </div>
@@ -47,10 +48,15 @@ class View
                 </div>
             </div>
             HTML;
-            
             echo $html;
         }
-        //echo "<a class='btn btn-primary' href='?'>Beställ</a>";
+
+        if ($total) {
+            echo "<h2>Totalt: $total</h2>";
+            echo "<a class='btn btn-primary' href='?page=placeOrder'>Beställ</a>";
+        } else {
+            echo "Här var det tomt!";
+        }
     }
 
     public function adminUpdatePage($product)

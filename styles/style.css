@@ -13,7 +13,7 @@
 }
 
 .message-animation {
-    animation: autoHide 1.5s linear;
+    animation: autoHide 2.0s linear;
 }
 
 @keyframes autoHide {
