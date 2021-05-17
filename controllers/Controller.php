@@ -24,7 +24,8 @@ class Controller
     /*
     TODO lägg beställningen (kolla om man är inloggad bl a)
     TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Other?
-    TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect
+    TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect till index.php.
+    TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
     */
 
     private function router()
@@ -260,22 +261,21 @@ class Controller
         } else {
             $total = 0;
             $productsView = array();
+            $productsDB = array();
             
             foreach ($_SESSION['cart'] as $productID => $quantity) {
-                $product = $this->model->fetchOneProduct($productID);
-                $product['quantity'] = $quantity;
-                array_push($productsView, $product);
-                $total += $product['price']*$quantity;
-            }
-            [{
-                id: 1,
-                qty: 3
-            },
-            {
+                $productView = $this->model->fetchOneProduct($productID);
+                $productView['quantity'] = $quantity;
+                array_push($productsView, $productView);
+                
+                $productDB = array('id' => $productID, 'qty' => $quantity);
+                array_push($productsDB, $productDB);
 
-            }]
+                $total += $productView['price']*$quantity;
+            }
+
             try {
-                $this->model->createOrder($_SESSION['id'], json_encode($_SESSION['cart']), $total);
+                $this->model->createOrder($_SESSION['id'], json_encode($productsDB), $total);
                 $_SESSION['cart'] = array();
                 $_SESSION['confirmMsg'] = 'Din order är beställd!';
                 header('location: index.php?msgTrigger=true');
