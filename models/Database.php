@@ -2,7 +2,6 @@
 
 class Database
 {
-
     private $conn = null;
 
     public function __construct($database, $username = "root", $password = "root", $servername = "localhost")
@@ -49,5 +48,12 @@ class Database
     public function delete($statement, $input_parameters = [])
     {
         $this->execute($statement, $input_parameters);
+    }
+    
+    public function emailExists($email)
+    {
+        if ($this->db->select("SELECT * FROM users WHERE email = '$email'"))
+            return true;
+        return false;
     }
 }

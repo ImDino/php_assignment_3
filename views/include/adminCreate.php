@@ -8,5 +8,4 @@
     <input required class="form-control" type="text" placeholder="Bild" name="img">
     <input required class="form-control" type="number" placeholder="Lager saldo" name="instock">
     <button class="btn btn-primary" type="submit">Submit</button>
-
 </form>
