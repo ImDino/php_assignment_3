@@ -108,11 +108,11 @@ class View
         echo $html;
     }
     
-    public function errorMsg() //REVIEW måste det vara såhär indenterat???
+    public function errorMsg($message = 'Något gick snett! Försök igen.')
     {
         $html = <<< HTML
                 <div class="my-2 alert alert-danger message message-animation">
-                    <h4>Något gick snett! Försök igen.</h4>
+                    <h4>$message</h4>
                 </div>
                 HTML;
         echo $html;

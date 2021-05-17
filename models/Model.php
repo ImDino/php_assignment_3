@@ -46,23 +46,28 @@ class Model
     public function updateOrder($id)
     {
         $addProduct = $this->db->update("UPDATE orders SET is_sent = 1  WHERE id = '$id'");
-
         return $addProduct;
     }
 
     public function fetchOneProduct($id)
     {
-        $product = $this->db->select("SELECT * FROM products WHERE id = $id")[0];
-        return $product;
+        $data = $this->db->select("SELECT * FROM products WHERE id = $id");
+        return $data ? $data[0] : $data;
     }
 
     public function userIsValid($user)
     {
         extract($user);
-        if (!$first_name || !$last_name || !$email || !$password || strlen($password) < 6 || !filter_var($email, FILTER_VALIDATE_EMAIL) || $this->db->emailExists($email)) { //REVIEW testa utan att validera emailexists
+        if (!$first_name || !$last_name || !$email || !$password || strlen($password) < 6 || !filter_var($email, FILTER_VALIDATE_EMAIL) || empty($this->getUser($email))) {
             return false;
         }
         return true;
+    }
+
+    public function getUser($email)
+    {
+        $data = $this->db->select("SELECT * FROM users WHERE email = '$email'");
+        return $data ? $data[0] : $data;
     }
     
     public function fetchAllOrders()

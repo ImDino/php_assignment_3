@@ -13,7 +13,6 @@
 }
 
 .message-animation {
-    /* animation: autoHide 0s ease-in 4s forwards; */
     animation: autoHide 1.5s linear;
 }
 

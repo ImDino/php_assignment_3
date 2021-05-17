@@ -79,6 +79,20 @@ class Controller
     private function login()
     {
         $this->getHeader('Login');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $user = $this->model->getUser($_POST['email']);
+                if (!$user) {
+                    $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
+                } else {
+                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
+                    header('location: ?msgTrigger=true');
+                }
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
         $this->view->LoginPage();
         $this->getFooter();
     }
