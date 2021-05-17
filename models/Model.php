@@ -43,9 +43,14 @@ class Model
         return $addProduct;
     }
 
-    public function updateOrder($id)
+    public function updateOrderSend($id)
     {
         $addProduct = $this->db->update("UPDATE orders SET is_sent = 1  WHERE id = '$id'");
+        return $addProduct;
+    }
+    public function updateOrderUnSend($id)
+    {
+        $addProduct = $this->db->update("UPDATE orders SET is_sent = 0  WHERE id = '$id'");
         return $addProduct;
     }
 

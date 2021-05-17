@@ -206,9 +206,17 @@ class Controller
     {
         if ($id) {
             try {
-                $this->model->updateOrder($id);
-                $_SESSION['confirmMsg'] = 'Order skickad!';
-                header('location: ?page=adminOrders&msgTrigger=true');
+                $action = $_GET['action'];
+                if($action == "send"){
+                    $this->model->updateOrderSend($id);
+                    $_SESSION['confirmMsg'] = 'Order skickad!';
+                    header('location: ?page=adminOrders&msgTrigger=true');
+                }
+                if($action == "unsend"){
+                    $this->model->updateOrderUnSend($id);
+                    $_SESSION['confirmMsg'] = 'Order oskickad!';
+                    header('location: ?page=adminOrders&msgTrigger=true');
+                }  
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }

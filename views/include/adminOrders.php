@@ -1,18 +1,24 @@
+<div class="show-order-types">
+    <a href="?page=adminOrders"><button>Alla beställningar</button></a>
+    <a href="?page=adminOrders&show=unsent_orders"><button>Oskickade beställningar</button></a>
+    <a href="?page=adminOrders&show=sent_orders"><button>Skickade beställning</button></a>
+</div>
+
 <?php
 
-
-// $test = json_decode($orders[2]['products'], true);
-// echo "<pre>";
-// print_r($test);
-// echo "</pre>";
-
-
-
 echo "<div class='container'>";
+
+if(isset($_GET['show'])){
+    if($_GET['show'] == "unsent_orders") {
+        $orders = array_filter($orders, function($x) { return $x['is_sent'] == 0; });
+    }
+    if($_GET['show'] == "sent_orders") {
+        $orders = array_filter($orders, function($x) { return $x['is_sent'] == 1; });
+    }
+    sort($orders);
+}
+
 for ($i = 0; $i < count($orders); $i++) {
-
-    if ($orders[$i]['is_sent'] == 0) {
-
 
         $products = json_decode($orders[$i]['products'], true);
         $id = $orders[$i]['id'];
@@ -22,12 +28,22 @@ for ($i = 0; $i < count($orders); $i++) {
         echo "Order datum: " . $orders[$i]['date'] . "<br/>";
         echo "Produkter: " . $products['key'] . "<br/>";
         echo "Totalt: " . $orders[$i]['total'] . " SEK" . "<br/>";
-        echo $orders[$i]['is_sent'] ? "Status 1" : " Status 0" . "<br/>";
-        echo "<a href='?page=adminOrders&id=$id'>
+        echo "Status: " . $orders[$i]['is_sent'] . "<br/>";
+
+        if($orders[$i]['is_sent'] == 0) {
+            echo "<a href='?page=adminOrders&action=send&id=$id'>
             Ändra till skickad</a>" . "<br/>";
+        }
+        if($orders[$i]['is_sent'] == 1) {
+            echo "<a href='?page=adminOrders&action=unsend&id=$id'>
+            Ångra skickad</a>" . "<br/>";
+        }
+       
+
+
         echo "</div>";
         echo "<br>";
         echo "<br>";
-    }
+
 }
 echo "</div>";
