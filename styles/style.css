@@ -10,6 +10,7 @@
     justify-content:center;
     opacity: 0;
     pointer-events: none;
+    z-index: 1;
 }
 
 .message-animation {

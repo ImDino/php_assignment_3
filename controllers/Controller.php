@@ -188,7 +188,6 @@ class Controller
                 $this->view->errorMsg();
             }
         }
-
         $this->getHeader('Admin Update');
         $product = $this->model->fetchOneProduct($id);
         $this->view->adminUpdatePage($product);
@@ -238,7 +237,7 @@ class Controller
                     $this->model->updateOrderUnSend($id);
                     $_SESSION['confirmMsg'] = 'Order oskickad!';
                     header('location: ?page=adminOrders&msgTrigger=true');
-                }  
+                }
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
@@ -303,6 +302,7 @@ class Controller
             } else {
                 $_SESSION['cart'][$productID] = 1;
             }
+            $this->view->confirmMsg('Tillagd i varukorgen!');
         }
         $this->getHeader('Välkommen');
         try {
