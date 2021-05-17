@@ -22,14 +22,7 @@ class Controller
     }
 
     /*
-    TODO session variabeln cart ska istället ha artikel id som nyckel och värde som antal
-    TODO check if admin
     TODO lägg beställningen (kolla om man är inloggad bl a)
-    TODO logga ut
-    
-    Rikard
-    TODO orderhistorik i order-vyn med möjlighet att ta tillbaka "skickad" beställning
-    TODO sub-meny i order sidan för "all - sent - not sent"
     */
 
     private function router()
@@ -46,6 +39,9 @@ class Controller
                 break;
             case 'login':
                 $this->login();
+                break;
+            case "logout":
+                $this->logout();
                 break;
             case 'register':
                 $this->register();
@@ -89,23 +85,35 @@ class Controller
 
     private function login()
     {
-        $this->getHeader('Login');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $user = $this->model->getUser($_POST['email']);
                 if (!$user) {
                     $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
                 } else {
-                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['name'] = $user['name'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['isAdmin'] = $user['is_admin'];
                     $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
                     header('location: ?msgTrigger=true');
                 }
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
+        } else if ($_SESSION['email']) {
+            header('location: index.php');
         }
+        $this->getHeader('Login');
         $this->view->LoginPage();
         $this->getFooter();
+    }
+
+    private function logout() {
+        $_SESSION['name'] = null;
+        $_SESSION['email'] = null;
+        $_SESSION['isAdmin'] = null;
+        $_SESSION['confirmMsg'] = "Du är nu utloggad!";
+        header('location: ?msgTrigger=true');
     }
 
     private function register()
