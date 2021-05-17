@@ -43,6 +43,13 @@ class Model
         return $addProduct;
     }
 
+    public function updateOrder($id)
+    {
+        $addProduct = $this->db->update("UPDATE orders SET is_sent = 1  WHERE id = '$id'");
+
+        return $addProduct;
+    }
+
     public function fetchOneProduct($id)
     {
         $product = $this->db->select("SELECT * FROM products WHERE id = $id")[0];
@@ -56,6 +63,12 @@ class Model
             return false;
         }
         return true;
+    }
+    
+    public function fetchAllOrders()
+    {
+        $orders = $this->db->select("SELECT * FROM orders");
+        return $orders;
     }
 
     public function sanitize($text) // REVIEW skräp?

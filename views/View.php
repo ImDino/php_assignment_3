@@ -55,12 +55,17 @@ class View
 
     public function adminUpdatePage($product)
     {
+        extract($product);
         include_once('views/include/adminUpdate.php');
     }
 
     public function adminCreatePage()
     {
         include_once('views/include/adminCreate.php');
+    }
+    public function adminOrdersPage($orders)
+    {
+        include_once("views/include/adminOrders.php");
     }
 
     public function adminPage($products)

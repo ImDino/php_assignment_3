@@ -51,6 +51,9 @@ class Controller
             case 'adminDelete':
                 $this->adminDelete($id);
                 break;
+            case "adminOrders":
+                $this->adminOrders($id);
+                break;
             default:
                 $this->getAllProducts();
         }
@@ -172,6 +175,23 @@ class Controller
         } catch (\Throwable $th) {
             $this->view->errorMsg();
         }
+    }
+    
+    private function adminOrders($id)
+    {
+        if ($id) {
+            try {
+                $this->model->updateOrder($id);
+                $_SESSION['confirmMsg'] = 'Order skickad!';
+                header('location: ?page=adminOrders&msgTrigger=true');
+            } catch (\Throwable $th) {
+                $this->view->errorMsg();
+            }
+        }
+        $this->getHeader("Alla ordrar");
+        $orders = $this->model->fetchAllOrders();
+        $this->view->adminOrdersPage($orders);
+        $this->getFooter();
     }
 
     private function getHeader($title)
