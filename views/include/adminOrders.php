@@ -18,32 +18,27 @@ if(isset($_GET['show'])){
     sort($orders);
 }
 
-for ($i = 0; $i < count($orders); $i++) {
+foreach ($orders as $index => $order) {
+    extract($order);
+    
+    if($is_sent == 0) {
+        $statusBtn = "<a href='?page=adminOrders&action=send&id=$id'>Ändra till skickad</a>";
+    } else {
+        $statusBtn = "<a href='?page=adminOrders&action=unsend&id=$id'>Återkalla</a>";
+    }
 
-        $products = json_decode($orders[$i]['products'], true);
-        $id = $orders[$i]['id'];
-        echo "<div class='row'>";
-        echo "Order nr: " . ($i + 1) . "<br/>";
-        echo "Användar ID: " . $orders[$i]['user_id'] . "<br/>";
-        echo "Order datum: " . $orders[$i]['date'] . "<br/>";
-        echo "Produkter: " . $products['key'] . "<br/>";
-        echo "Totalt: " . $orders[$i]['total'] . " SEK" . "<br/>";
-        echo "Status: " . $orders[$i]['is_sent'] . "<br/>";
-
-        if($orders[$i]['is_sent'] == 0) {
-            echo "<a href='?page=adminOrders&action=send&id=$id'>
-            Ändra till skickad</a>" . "<br/>";
-        }
-        if($orders[$i]['is_sent'] == 1) {
-            echo "<a href='?page=adminOrders&action=unsend&id=$id'>
-            Ångra skickad</a>" . "<br/>";
-        }
-       
-
-
-        echo "</div>";
-        echo "<br>";
-        echo "<br>";
-
+    $html = <<< HTML
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Order nr: $id</h5>
+                        <p class="card-text">Användar ID: $user_id</p>
+                        <p class="card-text">Order datum: $date</p>
+                        <p class="card-text">Totalt: $total</p>
+                        <p class="card-text">Status: $is_sent</p>
+                        $statusBtn
+                    </div>
+                </div>
+                HTML;
+    echo $html;
 }
 echo "</div>";

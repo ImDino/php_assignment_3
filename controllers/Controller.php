@@ -206,7 +206,6 @@ class Controller
                 $this->view->errorMsg();
             }
         }
-        
         $this->getHeader('Lägg till ny produkt');
         $this->view->adminCreatePage();
         $this->getFooter();
@@ -235,7 +234,7 @@ class Controller
                 }
                 if($action == "unsend"){
                     $this->model->updateOrderUnSend($id);
-                    $_SESSION['confirmMsg'] = 'Order oskickad!';
+                    $_SESSION['confirmMsg'] = 'Order återkallad!';
                     header('location: ?page=adminOrders&msgTrigger=true');
                 }
             } catch (\Throwable $th) {
