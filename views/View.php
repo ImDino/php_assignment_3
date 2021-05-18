@@ -12,11 +12,6 @@ class View
         include_once('views/include/footer.php');
     }
 
-    public function aboutPage()
-    {
-        include_once('views/include/about.php');
-    }
-
     public function loginPage()
     {
         include_once('views/include/login.php');

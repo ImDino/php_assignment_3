@@ -22,7 +22,7 @@ class Controller
     }
 
     /*
-    TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Other?
+    TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Products
     TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect till index.php.
     TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
     */
@@ -33,9 +33,6 @@ class Controller
         $id = $_GET['id'] ?? '';
 
         switch ($page) {
-            case 'about':
-                $this->about();
-                break;
             case 'checkout':
                 $this->checkout();
                 break;
@@ -79,13 +76,6 @@ class Controller
             $this->view->confirmMsg($confirmMsg);
             $_SESSION['confirmMsg'] = null;
         }
-    }
-
-    private function about()
-    {
-        $this->getHeader('Om Oss');
-        $this->view->AboutPage();
-        $this->getFooter();
     }
 
     private function login()
