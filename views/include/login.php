@@ -1,4 +1,4 @@
-<form action="?page=login" method="post">
+<form action="login" method="post">
     <label for="inputEmail" class="visually-hidden">Email address</label>
     <input
         type="email"
@@ -19,5 +19,5 @@
     
     <button class="w-50 btn btn-lg btn-primary mb-2" type="submit">Sign in</button>
     <p>Not a user?</p>
-    <a class="w-50 btn btn-lg btn-success" href="?page=register">Register</a>
+    <a class="w-50 btn btn-lg btn-success" href="register">Register</a>
 </form>

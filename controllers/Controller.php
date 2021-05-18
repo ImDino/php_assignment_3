@@ -8,6 +8,7 @@ class Controller
     {
         $this->model = $model;
         $this->view = $view;
+        $this->main();
     }
 
     public function main()
@@ -21,16 +22,9 @@ class Controller
         }
     }
 
-    /*
-    TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Products
-    TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect till index.php.
-    TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
-    */
-
     private function router()
     {
-        $page = $_GET['page'] ?? '';
-        $id = $_GET['id'] ?? '';
+        $page = $_GET['url'] ?? '';
 
         switch ($page) {
             case 'checkout':
@@ -38,30 +32,6 @@ class Controller
                 break;
             case 'placeOrder':
                 $this->placeOrder();
-                break;
-            case 'login':
-                $this->login();
-                break;
-            case "logout":
-                $this->logout();
-                break;
-            case 'register':
-                $this->register();
-                break;
-            case 'admin':
-                $this->admin();
-                break;
-            case 'adminUpdate':
-                $this->adminUpdate($id);
-                break;
-            case 'adminCreate':
-                $this->adminCreate();
-                break;
-            case 'adminDelete':
-                $this->adminDelete($id);
-                break;
-            case "adminOrders":
-                $this->adminOrders($id);
                 break;
             default:
                 $this->getAllProducts();
@@ -76,57 +46,6 @@ class Controller
             $this->view->confirmMsg($confirmMsg);
             $_SESSION['confirmMsg'] = null;
         }
-    }
-
-    private function login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $user = $this->model->getUser($_POST['email']);
-                if (!$user) {
-                    $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
-                } else {
-                    $_SESSION['name'] = $user['first_name'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['isAdmin'] = $user['is_admin'];
-                    $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
-                    header('location: ?msgTrigger=true');
-                }
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
-        } else if (isset($_SESSION['email']) && $_SESSION['email']) {
-            header('location: index.php');
-        }
-        $this->getHeader('Login');
-        $this->view->LoginPage();
-        $this->getFooter();
-    }
-
-    private function logout() {
-        $_SESSION['id'] = null;
-        $_SESSION['name'] = null;
-        $_SESSION['email'] = null;
-        $_SESSION['isAdmin'] = null;
-        $_SESSION['confirmMsg'] = "Du är nu utloggad!";
-        header('location: ?msgTrigger=true');
-    }
-
-    private function register()
-    {
-        $this->getHeader('Registrera dig');
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            try {
-                $this->model->createUser($_POST);
-                $_SESSION['confirmMsg'] = 'Ny användare skapad!';
-                header('location: ?page=login&msgTrigger=true');
-            } catch (Exception $e) {
-                $this->view->errorMsg();
-            }
-        }
-        $this->view->RegisterPage();
-        $this->getFooter();
     }
 
     private function checkout()
@@ -154,85 +73,6 @@ class Controller
             $this->view->checkoutPage($products, $total);
         } else $this->view->checkoutPage();
         
-        $this->getFooter();
-    }
-
-    private function admin()
-    {
-        $this->getHeader('Admin');
-        $products = $this->model->fetchAllProducts();
-        $this->view->adminPage($products);
-        $this->getFooter();
-    }
-
-    private function adminUpdate($id)
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product = $_POST;
-            try {
-                $this->model->updateProduct($product, $id);
-                $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
-                header('location: ?page=admin&msgTrigger=true');
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
-        }
-        $this->getHeader('Admin Update');
-        $product = $this->model->fetchOneProduct($id);
-        $this->view->adminUpdatePage($product);
-        $this->getFooter();
-    }
-
-    private function adminCreate()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product = $_POST;
-            try {
-                $this->model->createProduct($product);
-                $_SESSION['confirmMsg'] = 'Ny artikel skapad!';
-                header('location: ?page=admin&msgTrigger=true');
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
-        }
-        $this->getHeader('Lägg till ny produkt');
-        $this->view->adminCreatePage();
-        $this->getFooter();
-    }
-    
-    private function adminDelete($id)
-    {
-        try {
-            $this->model->deleteProduct($id);
-            $_SESSION['confirmMsg'] = 'Artikel borttagen';
-            header('location: ?page=admin&msgTrigger=true');
-        } catch (\Throwable $th) {
-            $this->view->errorMsg();
-        }
-    }
-    
-    private function adminOrders($id)
-    {
-        if ($id) {
-            try {
-                $action = $_GET['action'];
-                if($action == "send"){
-                    $this->model->updateOrderSend($id);
-                    $_SESSION['confirmMsg'] = 'Order skickad!';
-                    header('location: ?page=adminOrders&msgTrigger=true');
-                }
-                if($action == "unsend"){
-                    $this->model->updateOrderUnSend($id);
-                    $_SESSION['confirmMsg'] = 'Order återkallad!';
-                    header('location: ?page=adminOrders&msgTrigger=true');
-                }
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
-        }
-        $this->getHeader("Alla ordrar");
-        $orders = $this->model->fetchAllOrders();
-        $this->view->adminOrdersPage($orders);
         $this->getFooter();
     }
 

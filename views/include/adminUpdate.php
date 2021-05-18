@@ -1,4 +1,4 @@
-<form action="#" method="post" class="mx-auto">
+<form action="update" method="post" class="mx-auto">
     <label for="title">Titel</label>
     <input required class="form-control " type="text" name="name" value="<?= $name ?>">
     <div class="form-group">

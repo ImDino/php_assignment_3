@@ -1,4 +1,4 @@
-<form action="" method="post">    
+<form action="register" method="post">    
     <label for="inputEmail" class="visually-hidden">Email</label>
     <input
         type="email"

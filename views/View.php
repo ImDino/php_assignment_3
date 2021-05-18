@@ -37,7 +37,7 @@ class View
                             <p>$description</p>
                             <p>Antal: $quantity</p>
                             <h5>Pris: $price kr</h5>
-                            <a href="?page=checkout&removeFromCart=$id" class="btn btn-primary">Ta bort</a>
+                            <a href="checkout?removeFromCart=$id" class="btn btn-primary">Ta bort</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ class View
 
         if ($total) {
             echo "<h2>Totalt: $total</h2>";
-            echo "<a class='btn btn-primary' href='?page=placeOrder'>Beställ</a>";
+            echo "<a class='btn btn-primary' href='placeOrder'>Beställ</a>";
         } else {
             echo "Här var det tomt!";
         }
