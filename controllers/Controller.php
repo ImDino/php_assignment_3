@@ -22,7 +22,6 @@ class Controller
     }
 
     /*
-    TODO lägg beställningen (kolla om man är inloggad bl a)
     TODO Dela upp controllers (Admin (update/delete/etc), User (login, logout, register), Other?
     TODO i Admin controllern på main, kolla om isAdmin i session är true annars redirect till index.php.
     TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
