@@ -17,7 +17,7 @@ class Model
 
     public function createUser($user)
     {
-        array_map('htmlspecialchars', $user);
+        $user = array_map('htmlspecialchars', $user);
         if ($this->userIsValid($user)) {
             extract($user);
             $this->db->insert("INSERT INTO users (email, password, first_name, last_name) VALUES ('$email', '$password', '$first_name', '$last_name')");
