@@ -76,6 +76,7 @@ class Model
 
     public function getUser($email)
     {
+        $email = htmlspecialchars($email);
         $data = $this->db->select("SELECT * FROM users WHERE email = '$email'");
         return $data ? $data[0] : array(); // REVIEW kan man köra null ist?
     }
