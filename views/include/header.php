@@ -17,6 +17,7 @@
 <?php
 $email = $_SESSION['email'] ?? null;
 $isAdmin = $_SESSION['isAdmin'] ?? null;
+
 $serverRoot = SERVER_ROOT;
 ?>
 
@@ -51,7 +52,7 @@ $serverRoot = SERVER_ROOT;
                 <?php
                 if ($isAdmin) {
                     echo "<li class='nav-item'>
-                            <a class='nav-link' href='admin'>Admin</a>
+                            <a class='nav-link' href='$serverRoot/admin'>Admin</a>
                         </li>";
                 }
                 ?>

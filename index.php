@@ -14,7 +14,6 @@ require_once("controllers/AdminController.php");
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 
-//TODO lösa problemet med att man i vissa fall är på www.localhost
 //TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
 //TODO jämför hastighet när man deklarerar klassvariabler innan och kör main i switchen.
 
