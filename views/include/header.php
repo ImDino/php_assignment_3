@@ -15,18 +15,17 @@
 </head>
 
 <?php
+
 $email = $_SESSION['email'] ?? null;
 $isAdmin = $_SESSION['isAdmin'] ?? null;
-
 $serverRoot = SERVER_ROOT;
+
 ?>
 
 <body class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="<?php echo SERVER_ROOT?>/">PHP Butiken</a>
-        <?php
-        echo $email ? $email : '';
-        ?>
+        <a class="navbar-brand" href="<?php echo SERVER_ROOT?>">PHP Butiken</a>
+        <?php echo $email ? $email : '';?>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,7 +45,7 @@ $serverRoot = SERVER_ROOT;
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo SERVER_ROOT?>/checkout">Kundkorg</a>
+                    <a class="nav-link" href="<?php echo SERVER_ROOT?>/cart">Kundkorg</a>
                 </li>
 
                 <?php

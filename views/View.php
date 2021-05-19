@@ -21,37 +21,10 @@ class View
     {
         include_once('views/include/register.php');
     }
-
-    public function checkoutPage($products = array(), $total = 0)
+    
+    public function cartPage($products = array(), $total = 0)
     {
-        foreach ($products as $product) {
-            extract($product);
-            $html = <<<HTML
-            <div class="col-md-6">
-                <div class="card m-1">
-                    <img class="card-img-top" src="$img" 
-                            alt="$name">
-                    <div class="card-body">
-                        <div class="card-title text-center">
-                            <h4>$name</h4>
-                            <p>$description</p>
-                            <p>Antal: $quantity</p>
-                            <h5>Pris: $price kr</h5>
-                            <a href="checkout?removeFromCart=$id" class="btn btn-primary">Ta bort</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            HTML;
-            echo $html;
-        }
-
-        if ($total) {
-            echo "<h2>Totalt: $total</h2>";
-            echo "<a class='btn btn-primary' href='placeOrder'>Beställ</a>";
-        } else {
-            echo "Här var det tomt!";
-        }
+        include_once('views/include/cart.php');
     }
 
     public function adminUpdatePage($product)
@@ -64,6 +37,7 @@ class View
     {
         include_once('views/include/adminCreate.php');
     }
+
     public function adminOrdersPage($orders)
     {
         include_once("views/include/adminOrders.php");
@@ -73,33 +47,13 @@ class View
     {
         include_once('views/include/admin.php');
     }
-
-    public function allProducts($products)
+    
+    public function productPage($products)
     {
-        foreach ($products as $product) {
-            extract($product);
-            $html = <<<HTML
-            <div class="col-md-6">
-                <div class="card m-1">
-                    <img class="card-img-top" src="$img" 
-                            alt="$name">
-                    <div class="card-body">
-                        <div class="card-title text-center">
-                            <h4>$name</h4>
-                            <p>$description</p>
-                            <h5>Pris: $price kr</h5>
-                            <a href="?addToCart=$id" class="btn btn-primary">Köp</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            HTML;
-
-            echo $html;
-        }
+        include_once('views/include/products.php');
     }
 
-    public function confirmMsg($text) //REVIEW måste det vara såhär indenterat???
+    public function confirmMsg($text)
     {
         $html = <<< HTML
                 <div class="my-2 alert alert-success message message-animation">

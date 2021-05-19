@@ -23,14 +23,14 @@ class Controller
         $page = $_GET['url'] ?? '';
 
         switch ($page) {
-            case 'checkout':
-                $this->checkout();
+            case 'cart':
+                $this->cart();
                 break;
             case 'placeOrder':
                 $this->placeOrder();
                 break;
             default:
-                $this->getAllProducts();
+                $this->products();
         }
     }
 
@@ -44,13 +44,15 @@ class Controller
         }
     }
 
-    private function checkout()
+    private function cart()
     {
         $this->view->header('Kassan');
         if (isset($_GET['removeFromCart'])) {
             $productID = $_GET['removeFromCart'];
+
             if (array_key_exists($productID, $_SESSION['cart'])) {
                 $_SESSION['cart'][$productID]--;
+
                 if ($_SESSION['cart'][$productID] == 0) {
                     unset($_SESSION['cart'][$productID]);
                 }
@@ -66,8 +68,8 @@ class Controller
                 array_push($products, $product);
                 $total += $product['price']*$quantity;
             }
-            $this->view->checkoutPage($products, $total);
-        } else $this->view->checkoutPage();
+            $this->view->cartPage($products, $total);
+        } else $this->view->cartPage();
         
         $this->view->footer();
     }
@@ -107,7 +109,7 @@ class Controller
         }
     }
 
-    private function getAllProducts()
+    private function products()
     {
         if (isset($_GET['addToCart'])) {
             $productID = $_GET['addToCart'];
@@ -125,7 +127,7 @@ class Controller
         } catch (\Throwable $th) {
             $this->view->errorMsg();
         }
-        $this->view->allProducts($products);
+        $this->view->productPage($products);
         $this->view->footer();
     }
 }

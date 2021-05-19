@@ -6,19 +6,22 @@
         <button class="btn btn-primary">Ordrar</button>
     </a>
 </div>
+
 <?php
 
-echo $ul = "<ul class='mx-auto'>";
+echo "<ul class='mx-auto'>";
+
 foreach ($products as $product) {
     $li = "<li>$product[name]
-  <a href='admin/delete?id=$product[id]' class=' btn btn-sm btn-outline-danger'>
-      Tabort</a>
-  <a href='admin/update?id=$product[id]' class=' btn btn-sm btn-outline-success'>
-      Redigera</a>
-  </li>";
+                <a href='admin/delete?id=$product[id]' class=' btn btn-sm btn-outline-danger'>
+                    Tabort
+                </a>
+                <a href='admin/update?id=$product[id]' class=' btn btn-sm btn-outline-success'>
+                    Redigera
+                </a>
+            </li>";
     echo $li;
 }
-echo $ul = "</ul>";
-
+echo "</ul>";
 
 ?>

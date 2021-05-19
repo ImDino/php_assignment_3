@@ -119,7 +119,7 @@ class AdminController
                     $_SESSION['confirmMsg'] = 'Order skickad!';
                     header('location: orders');
                 }
-                if($action == "unsend"){
+                else if($action == "unsend"){
                     $this->model->updateOrderUnSend($id);
                     $_SESSION['confirmMsg'] = 'Order återkallad!';
                     header('location: orders');
