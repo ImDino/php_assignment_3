@@ -46,7 +46,7 @@ class Controller
 
     private function checkout()
     {
-        $this->getHeader('Kassan');
+        $this->view->header('Kassan');
         if (isset($_GET['removeFromCart'])) {
             $productID = $_GET['removeFromCart'];
             if (array_key_exists($productID, $_SESSION['cart'])) {
@@ -69,26 +69,17 @@ class Controller
             $this->view->checkoutPage($products, $total);
         } else $this->view->checkoutPage();
         
-        $this->getFooter();
-    }
-
-    private function getHeader($title)
-    {
-        $this->view->header($title);
-    }
-
-    private function getFooter()
-    {
         $this->view->footer();
     }
 
-    private function placeOrder() {
+    private function placeOrder()
+    {
         if (empty($_SESSION['cart'])) {
             header('location: '.SERVER_ROOT.'/login');
         }
         if (!isset($_SESSION['email']) && !$_SESSION['email']) {
             $_SESSION['confirmMsg'] = 'Vänligen logga in för att beställa din order!';
-            header('location: '.SERVER_ROOT.'/login');
+            header('location: '.SERVER_ROOT.'/user/login');
         } else {
             $total = 0;
             $productsView = array();
@@ -128,13 +119,13 @@ class Controller
             }
             $this->view->confirmMsg('Tillagd i varukorgen!');
         }
-        $this->getHeader('Välkommen');
+        $this->view->header('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();
         } catch (\Throwable $th) {
             $this->view->errorMsg();
         }
         $this->view->allProducts($products);
-        $this->getFooter();
+        $this->view->footer();
     }
 }

@@ -33,7 +33,7 @@ class UserController
                 $this->register();
                 break;
             default:
-                /* header('location: .'); */
+                header('location: '.SERVER_ROOT);
         }
     }
 
@@ -52,13 +52,10 @@ class UserController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $user = $this->model->getUser($_POST['email']);
-                if (!$user) {
-                    $this->view->errorMsg("Felaktigt användarnamn eller lösenord");
+                if (!$user || $user['password'] !== $_POST['password']) {
+                    $this->view->errorMsg("Felaktig epost eller lösenord");
                 } else {
-                    $_SESSION['name'] = $user['first_name'];
-                    $_SESSION['email'] = $user['email'];
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['isAdmin'] = $user['is_admin'];
+                    $this->mapUserSession($user);
                     $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
                     header('location: '.SERVER_ROOT);
                 }
@@ -66,18 +63,17 @@ class UserController
                 $this->view->errorMsg();
             }
         } else if (isset($_SESSION['email']) && $_SESSION['email']) {
-            header('location: index.php');
+            $_SESSION['confirmMsg'] = "Du är redan inloggad!";
+            header('location: '.SERVER_ROOT);
         }
         $this->view->header('Login');
         $this->view->LoginPage();
         $this->view->footer();
     }
 
-    private function logout() {
-        $_SESSION['id'] = null;
-        $_SESSION['name'] = null;
-        $_SESSION['email'] = null;
-        $_SESSION['isAdmin'] = null;
+    private function logout()
+    {
+        $this->unmapUserSession();
         $_SESSION['confirmMsg'] = "Du är nu utloggad!";
         header('location: '.SERVER_ROOT);
     }
@@ -96,5 +92,21 @@ class UserController
         }
         $this->view->RegisterPage();
         $this->view->footer();
+    }
+
+    private function mapUserSession($user)
+    {
+        $_SESSION['name'] = $user['first_name'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['isAdmin'] = $user['is_admin'];
+    }
+
+    private function unmapUserSession()
+    {
+        $_SESSION['id'] = null;
+        $_SESSION['name'] = null;
+        $_SESSION['email'] = null;
+        $_SESSION['isAdmin'] = null;
     }
 }

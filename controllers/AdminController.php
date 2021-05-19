@@ -13,14 +13,11 @@ class AdminController
 
     public function main()
     {
+        $this->checkIfAdmin();
         $this->model->createCart();
         $this->checkMsg();
         $this->router();
     }
-
-    /*
-    TODO på main, kolla om isAdmin i session är true annars redirect till index.php.
-    */
 
     private function router()
     {
@@ -44,7 +41,7 @@ class AdminController
                 $this->orders($id);
                 break;
             default:
-                header("location: .");
+                header('location: '.SERVER_ROOT.'/admin');
         }
     }
 
@@ -73,13 +70,12 @@ class AdminController
             try {
                 $this->model->updateProduct($product, $id);
                 $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
-                //header('location: '.SERVER_ROOT.'/admin');
+                header('location: '.SERVER_ROOT.'/admin');
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
         }
         $this->view->header('Admin Update');
-        echo $id;
         $product = $this->model->fetchOneProduct($id);
         $this->view->adminUpdatePage($product);
         $this->view->footer();
@@ -107,7 +103,7 @@ class AdminController
         try {
             $this->model->deleteProduct($id);
             $_SESSION['confirmMsg'] = 'Artikel borttagen';
-            header('location: .');
+            header('location: '.SERVER_ROOT.'/admin');
         } catch (\Throwable $th) {
             $this->view->errorMsg();
         }
@@ -136,5 +132,13 @@ class AdminController
         $orders = $this->model->fetchAllOrders();
         $this->view->adminOrdersPage($orders);
         $this->view->footer();
+    }
+
+    private function checkIfAdmin()
+    {
+        $isAdmin = $_SESSION['isAdmin'] ?? null;
+        if (!$isAdmin) {
+            header('location: '.SERVER_ROOT);
+        }
     }
 }

@@ -14,10 +14,13 @@ require_once("controllers/AdminController.php");
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 
-//TODO update article är paj??
-//TODO Fråga Mahmoud: rätt att ha som model istället, model såvitt jag vet används för att hantera db o sånt bara?
-//TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
-//TODO jämför hastighet när man deklarerar klassvariabler innan och kör main i switchen.
+// Fråga Mahmoud så mycket som möjligt om nedan!
+//TODO kalla på $this->model->createCart(); och checkMsg härifrån??
+//TODO rätt att ha checkMsg som model istället? model såvitt jag vet används för att hantera db o sånt bara?
+//TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt, be Mahmoud kolla och tipsa hur man brukar dela upp sånt vi har.
+//TODO se till att eventuella trailing slashes tas bort automatiskt, som när man försöker gå till facebook.com/ så blire automatiskt facebook.com
+
+//TODO jämför hastighet med när man deklarerar klassvariabler innan och kör main i switchen.
 
 $database   = new Database('uppgift', 'admin', 'nackademin', 'php-assignment-3.cpxa3ccuhmpt.eu-west-1.rds.amazonaws.com');
 $model      = new Model($database);
