@@ -84,7 +84,8 @@ class UserController
         $_SESSION['email'] = null;
         $_SESSION['isAdmin'] = null;
         $_SESSION['confirmMsg'] = "Du är nu utloggad!";
-        header('location: .?msgTrigger=true');
+        $serverRoot = SERVER_ROOT;
+        header("location: $serverRoot?msgTrigger=true");
     }
 
     private function register()

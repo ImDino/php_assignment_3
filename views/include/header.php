@@ -17,6 +17,7 @@
 <?php
 $email = $_SESSION['email'] ?? null;
 $isAdmin = $_SESSION['isAdmin'] ?? null;
+$serverRoot = SERVER_ROOT;
 ?>
 
 <body class="container">
@@ -35,16 +36,16 @@ $isAdmin = $_SESSION['isAdmin'] ?? null;
                 echo !$email 
                     ?
                     "<li class='nav-item'>
-                        <a class='nav-link' href='user/login'>Logga in</a>
+                        <a class='nav-link' href='$serverRoot/user/login'>Logga in</a>
                     </li>"
                     :
                     "<li class='nav-item'>
-                        <a class='nav-link' href='user/logout'>Logga ut</a>
+                        <a class='nav-link' href='$serverRoot/user/logout'>Logga ut</a>
                     </li>";
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="checkout">Kundkorg</a>
+                    <a class="nav-link" href="<?php echo SERVER_ROOT?>/checkout">Kundkorg</a>
                 </li>
 
                 <?php
