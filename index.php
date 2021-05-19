@@ -1,6 +1,6 @@
 <?php
 session_start();
-define('SERVER_ROOT', 'http://localhost/backend2/php_assignment_3');
+define('SERVER_ROOT', str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
 
 // Models
 require_once("models/Database.php");
