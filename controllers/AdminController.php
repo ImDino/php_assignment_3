@@ -69,17 +69,17 @@ class AdminController
     private function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            echo "hej";
             $product = $_POST;
             try {
                 $this->model->updateProduct($product, $id);
                 $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
-                header('location: '.SERVER_ROOT.'/admin');
+                //header('location: '.SERVER_ROOT.'/admin');
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
         }
         $this->view->header('Admin Update');
+        echo $id;
         $product = $this->model->fetchOneProduct($id);
         $this->view->adminUpdatePage($product);
         $this->view->footer();

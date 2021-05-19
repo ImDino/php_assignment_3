@@ -43,8 +43,12 @@ class Model
     
     public function updateProduct($product, $id)
     {
+        echo "id: ".$id;
+        echo "<pre>";
+        print_r($product);
+        echo "</pre>";
         extract($product);
-        $addProduct = $this->db->update("UPDATE products SET name = '$name', description = '$description', price = '$price', img = '$img', instock = '$instock'  WHERE id = '$id'");
+        $addProduct = $this->db->update("UPDATE products SET name = '$name', description = '$description', price = '$price', img = '$img', instock = '$instock' WHERE id = '$id'");
         return $addProduct;
     }
 

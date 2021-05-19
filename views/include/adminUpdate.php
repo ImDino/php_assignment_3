@@ -18,5 +18,4 @@
     <input required class="form-control" type="number" placeholder="Lager saldo" name="instock" value="<?= $instock ?>">
 
     <button class=" btn btn-primary" type="submit">Uppdatera</button>
-
 </form>
