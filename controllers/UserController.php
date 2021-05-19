@@ -14,12 +14,8 @@ class UserController
     public function main()
     {
         $this->model->createCart();
+        $this->checkMsg();
         $this->router();
-        
-        $msgTrigger = $_GET['msgTrigger'] ?? null;
-        if ($msgTrigger) {
-            $this->checkMsg();
-        }
     }
 
     private function router()
@@ -64,8 +60,7 @@ class UserController
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['isAdmin'] = $user['is_admin'];
                     $_SESSION['confirmMsg'] = "Välkommen $user[first_name]!";
-                    $serverRoot = SERVER_ROOT;
-                    header("location: $serverRoot?msgTrigger=true");
+                    header('location: '.SERVER_ROOT);
                 }
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
@@ -84,8 +79,7 @@ class UserController
         $_SESSION['email'] = null;
         $_SESSION['isAdmin'] = null;
         $_SESSION['confirmMsg'] = "Du är nu utloggad!";
-        $serverRoot = SERVER_ROOT;
-        header("location: $serverRoot?msgTrigger=true");
+        header('location: '.SERVER_ROOT);
     }
 
     private function register()
@@ -95,7 +89,7 @@ class UserController
             try {
                 $this->model->createUser($_POST);
                 $_SESSION['confirmMsg'] = 'Ny användare skapad!';
-                header('location: ?page=login&msgTrigger=true');
+                header('location: login');
             } catch (Exception $e) {
                 $this->view->errorMsg();
             }

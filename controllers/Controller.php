@@ -14,12 +14,8 @@ class Controller
     public function main()
     {
         $this->model->createCart();
+        $this->checkMsg();
         $this->router();
-        
-        $msgTrigger = $_GET['msgTrigger'] ?? null;
-        if ($msgTrigger) {
-            $this->checkMsg();
-        }
     }
 
     private function router()
@@ -88,11 +84,11 @@ class Controller
 
     private function placeOrder() {
         if (empty($_SESSION['cart'])) {
-            header('location: index.php');
+            header('location: '.SERVER_ROOT.'/login');
         }
         if (!isset($_SESSION['email']) && !$_SESSION['email']) {
             $_SESSION['confirmMsg'] = 'Vänligen logga in för att beställa din order!';
-            header('location: ?page=login&msgTrigger=true');
+            header('location: '.SERVER_ROOT.'/login');
         } else {
             $total = 0;
             $productsView = array();
@@ -113,7 +109,7 @@ class Controller
                 $this->model->createOrder($_SESSION['id'], json_encode($productsDB), $total);
                 $_SESSION['cart'] = array();
                 $_SESSION['confirmMsg'] = 'Din order är beställd!';
-                header('location: index.php?msgTrigger=true');
+                header('location: '.SERVER_ROOT);
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }

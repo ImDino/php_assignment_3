@@ -14,6 +14,8 @@ require_once("controllers/AdminController.php");
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 
+//TODO databasen är paj??
+//TODO Fråga Mahmoud: rätt att ha som model istället, model såvitt jag vet används för att hantera db o sånt bara?
 //TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt.
 //TODO jämför hastighet när man deklarerar klassvariabler innan och kör main i switchen.
 

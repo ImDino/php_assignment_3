@@ -14,12 +14,8 @@ class AdminController
     public function main()
     {
         $this->model->createCart();
+        $this->checkMsg();
         $this->router();
-        
-        $msgTrigger = $_GET['msgTrigger'] ?? null;
-        if ($msgTrigger) {
-            $this->checkMsg();
-        }
     }
 
     /*
@@ -78,8 +74,7 @@ class AdminController
             try {
                 $this->model->updateProduct($product, $id);
                 $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
-                $serverRoot = SERVER_ROOT;
-                header("location: $serverRoot/admin?msgTrigger=true");
+                header('location: '.SERVER_ROOT.'/admin');
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
@@ -97,8 +92,7 @@ class AdminController
             try {
                 $this->model->createProduct($product);
                 $_SESSION['confirmMsg'] = 'Ny artikel skapad!';
-                $serverRoot = SERVER_ROOT;
-                header("location: $serverRoot/admin?msgTrigger=true");
+                header('location: '.SERVER_ROOT.'/admin');
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
             }
@@ -113,7 +107,7 @@ class AdminController
         try {
             $this->model->deleteProduct($id);
             $_SESSION['confirmMsg'] = 'Artikel borttagen';
-            header('location: ?msgTrigger=true');
+            header('location: .');
         } catch (\Throwable $th) {
             $this->view->errorMsg();
         }
@@ -127,12 +121,12 @@ class AdminController
                 if($action == "send"){
                     $this->model->updateOrderSend($id);
                     $_SESSION['confirmMsg'] = 'Order skickad!';
-                    header('location: orders?msgTrigger=true');
+                    header('location: orders');
                 }
                 if($action == "unsend"){
                     $this->model->updateOrderUnSend($id);
                     $_SESSION['confirmMsg'] = 'Order återkallad!';
-                    header('location: orders?msgTrigger=true');
+                    header('location: orders');
                 }
             } catch (\Throwable $th) {
                 $this->view->errorMsg();
