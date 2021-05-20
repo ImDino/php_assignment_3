@@ -1,30 +1,36 @@
-<div class="show-order-types"> //TODO ändra till absolute path?
-    <a href="?page=adminOrders"><button>Alla beställningar</button></a>
-    <a href="?page=adminOrders&show=unsent_orders"><button>Oskickade beställningar</button></a>
-    <a href="?page=adminOrders&show=sent_orders"><button>Skickade beställning</button></a>
+<div class="show-order-types">
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?page=adminOrders">
+        <button>Alla beställningar</button>
+    </a>
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=unsent_orders">
+        <button>Oskickade beställningar</button>
+    </a>
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=sent_orders">
+        <button>Skickade beställning</button>
+    </a>
 </div>
 
 <?php
 
 echo "<div class='container'>";
 
-if(isset($_GET['show'])){ //TODO gör en snyggare lösning
-    if($_GET['show'] == "unsent_orders") {
+if (isset($_GET['show'])) {
+    if ($_GET['show'] == "unsent_orders") {
         $orders = array_filter($orders, function($x) { return $x['is_sent'] == 0; });
     }
-    else if($_GET['show'] == "sent_orders") {
+    else if ($_GET['show'] == "sent_orders") {
         $orders = array_filter($orders, function($x) { return $x['is_sent'] == 1; });
     }
     sort($orders);
 }
 
-foreach ($orders as $index => $order) {
+foreach ($orders as $order) {
     extract($order);
     
     if($is_sent == 0) {
-        $statusBtn = "<a href='?action=send&id=$id'>Ändra till skickad</a>"; //TODO ändra till absolute path?
+        $statusBtn = "<a href='?action=send&id=$id' class='btn btn-sm btn-outline-success'>Ändra till skickad</a>";
     } else {
-        $statusBtn = "<a href='?action=unsend&id=$id'>Återkalla</a>"; //TODO ändra till absolute path?
+        $statusBtn = "<a href='?action=unsend&id=$id' class='btn btn-sm btn-outline-success'>Återkalla</a>";
     }
 
     $html = <<< HTML
@@ -41,4 +47,5 @@ foreach ($orders as $index => $order) {
                 HTML;
     echo $html;
 }
+
 echo "</div>";

@@ -13,7 +13,6 @@ class ProductController
 
     public function main()
     {
-        $this->checkMsg();  // TODO ta bort
         $this->router();
     }
 
@@ -28,23 +27,13 @@ class ProductController
         }
     }
 
-    private function checkMsg()  // TODO ta bort
-    {
-        $confirmMsg = $_SESSION['confirmMsg'] ?? null;
-        
-        if ($confirmMsg) {
-            $this->view->confirmMsg($confirmMsg);
-            $_SESSION['confirmMsg'] = null;
-        }
-    }
-    
     private function products()
     {
         $this->view->header('Välkommen');
         try {
             $products = $this->model->fetchAllProducts();
         } catch (\Throwable $th) {
-            $this->view->errorMsg();
+            Message::printError();
         }
         $this->view->productPage($products);
         $this->view->footer();

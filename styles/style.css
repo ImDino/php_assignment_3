@@ -1,6 +1,7 @@
 .card:hover{
     border: none;
 }
+
 .message {
     position: fixed;
     top: 0;

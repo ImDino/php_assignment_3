@@ -1,42 +1,42 @@
 
 <form action="<?php echo SERVER_ROOT?>/user/register" method="post">    
-    <label for="inputEmail" class="visually-hidden">Email</label>
+    <label for="inputEmail" class="visually-hidden">Epost</label>
     <input
         type="email"
         id="inputEmail"
         name="email"
         class="form-control"
-        placeholder="Email address"
+        placeholder="Ange Epost"
         value="<?php echo $_POST['email'] ?? ''?>"
         required autofocus>
     
-    <label for="first_name" class="visually-hidden">First Name</label>
+    <label for="first_name" class="visually-hidden">Förnamn</label>
     <input
         type="text"
         id="first_name"
         name="first_name"
         class="form-control"
-        placeholder="First name"
+        placeholder="Ange förnamn"
         value="<?php echo $_POST['first_name'] ?? ''?>"
         required>
         
-    <label for="last_name" class="visually-hidden">Last Name</label>
+    <label for="last_name" class="visually-hidden">Efternamn</label>
     <input
         type="text"
         id="last_name"
         name="last_name"
         class="form-control"
-        placeholder="Last name"
+        placeholder="Ange efternamn"
         value="<?php echo $_POST['last_name'] ?? ''?>"
         required>
         
-    <label for="password" class="visually-hidden">Password</label>
+    <label for="password" class="visually-hidden">Lösenord</label>
     <input
         type="password"
         id="password"
         name="password"
         class="form-control"
-        placeholder="Password"
+        placeholder="Ange lösenord"
         required>
     
     <button class="w-100 btn btn-lg btn-primary" type="submit">Skapa konto</button>

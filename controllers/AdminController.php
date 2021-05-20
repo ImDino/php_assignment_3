@@ -14,13 +14,12 @@ class AdminController
     public function main()
     {
         $this->checkIfAdmin();
-        $this->checkMsg();  // TODO ta bort
         $this->router();
     }
 
     private function router()
     {
-        $page = explode('/', $_GET['url'])[1] ?? "";
+        $page = explode('/', $_GET['url'])[1] ?? '';
         $id = $_GET['id'] ?? '';
         
         switch ($page) {
@@ -44,16 +43,6 @@ class AdminController
         }
     }
 
-    private function checkMsg() // TODO ta bort
-    {
-        $confirmMsg = $_SESSION['confirmMsg'] ?? null;
-        
-        if ($confirmMsg) {
-            $this->view->confirmMsg($confirmMsg);
-            $_SESSION['confirmMsg'] = null;
-        }
-    }
-
     private function admin()
     {
         $this->view->header('Admin');
@@ -65,16 +54,9 @@ class AdminController
     private function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product = $_POST;
-            try {
-                $this->model->updateProduct($product, $id);
-                $_SESSION['confirmMsg'] = 'Produkten är uppdaterad!';
-                header('location: '.SERVER_ROOT.'/admin');
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
+            $this->handleUpdate($id);
         }
-        $this->view->header('Admin Update');
+        $this->view->header('Redigera produkten');
         $product = $this->model->fetchOneProduct($id);
         $this->view->adminUpdatePage($product);
         $this->view->footer();
@@ -83,16 +65,9 @@ class AdminController
     private function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product = $_POST;
-            try {
-                $this->model->createProduct($product);
-                $_SESSION['confirmMsg'] = 'Ny artikel skapad!';
-                header('location: '.SERVER_ROOT.'/admin');
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
+            $this->handleCreation();
         }
-        $this->view->header('Lägg till ny produkt');
+        $this->view->header('Ny produkt');
         $this->view->adminCreatePage();
         $this->view->footer();
     }
@@ -101,31 +76,17 @@ class AdminController
     {
         try {
             $this->model->deleteProduct($id);
-            $_SESSION['confirmMsg'] = 'Artikel borttagen';
+            Message::set('Artikel borttagen');
             header('location: '.SERVER_ROOT.'/admin');
         } catch (\Throwable $th) {
-            $this->view->errorMsg();
+            Message::printError();
         }
     }
     
     private function orders($id)
     {
-        if ($id) {
-            try {
-                $action = $_GET['action'];
-                if($action == "send"){
-                    $this->model->updateOrderSend($id);
-                    $_SESSION['confirmMsg'] = 'Order skickad!';
-                    header('location: orders');
-                }
-                else if($action == "unsend"){
-                    $this->model->updateOrderUnSend($id);
-                    $_SESSION['confirmMsg'] = 'Order återkallad!';
-                    header('location: orders');
-                }
-            } catch (\Throwable $th) {
-                $this->view->errorMsg();
-            }
+        if (isset($_GET['action'])) {
+            $this->handleOrderAction($id);
         }
         $this->view->header('Alla ordrar');
         $orders = $this->model->fetchAllOrders();
@@ -137,7 +98,55 @@ class AdminController
     {
         $isAdmin = $_SESSION['isAdmin'] ?? null;
         if (!$isAdmin) {
-            header('location: '.SERVER_ROOT);
+            exit(header('location: '.SERVER_ROOT));
+        }
+    }
+
+    private function handleOrderAction($id)
+    {
+        $action = $_GET['action'] ?? null;
+
+        if ($action == "send") {
+            try {
+                $this->model->updateShippingStatus($id, 1);
+                Message::set('Order skickad!');
+                exit(header('location: orders'));
+            } catch (\Throwable $th) {
+                Message::printError();
+            }
+        }
+        else if ($action == "unsend") {
+            try {
+                $this->model->updateShippingStatus($id, 0);
+                Message::set('Order återkallad!');
+                exit(header('location: orders'));
+            } catch (\Throwable $th) {
+                Message::printError();
+            }
+        }
+    }
+
+    private function handleUpdate($id)
+    {
+        $product = $_POST;
+        try {
+            $this->model->updateProduct($product, $id);
+            Message::set('Produkten är uppdaterad!');
+            exit(header('location: '.SERVER_ROOT.'/admin'));
+        } catch (\Throwable $th) {
+            Message::printError();
+        }
+    }
+
+    private function handleCreation()
+    {
+        $product = $_POST;
+        try {
+            $this->model->createProduct($product);
+            Message::set('Ny artikel skapad!');
+            exit(header('location: '.SERVER_ROOT.'/admin'));
+        } catch (\Throwable $th) {
+            Message::printError();
         }
     }
 }

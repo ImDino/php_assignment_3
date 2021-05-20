@@ -64,7 +64,7 @@ class CartController
         }
         $this->updateCart();
     }
-    
+
     private function cart()
     {
         $this->view->header('Kassan');
@@ -80,27 +80,24 @@ class CartController
     
     private function checkout()
     {
-        $email = $_SESSION['email'] ?? null;
-
+        $userID = $_SESSION['id'] ?? null;
+        
         if (empty($this->cart)) {
             header('location: '.SERVER_ROOT);
         }
-        if (!$email) {
-            $_SESSION['confirmMsg'] = 'Vänligen logga in för att beställa din order!';
-            header('location: '.SERVER_ROOT.'/user/login');
+        else if (!$userID) {
+            Message::set('Vänligen logga in för att beställa din order!');
+            exit(header('location: '.SERVER_ROOT.'/user/login'));
         }
 
         $products = $this->getProducts();
         try {
-            $userID = $_SESSION['id'];
-
-            $this->formatProductsForDB($products);
-            /* $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
+            $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
             $_SESSION['cart'] = array();
-            $_SESSION['confirmMsg'] = 'Din order är beställd!';
-            header('location: '.SERVER_ROOT); */
+            Message::set('Din order är beställd!');
+            header('location: '.SERVER_ROOT);
         } catch (\Throwable $th) {
-            $this->view->errorMsg();
+            Message::printError();
         }
     }
 
@@ -112,7 +109,6 @@ class CartController
             $product = $this->model->fetchOneProduct($productID);
             $product['quantity'] = $quantity;
             $this->total += $product['price']*$quantity;
-
             array_push($output, $product);
         }
         return $output;
@@ -121,12 +117,10 @@ class CartController
     private function formatProductsForDB($products)
     {
         $output = array();
-
-        foreach ($products as $productID => $value) {
-            echo $productID;
-            echo $value;
-            //$product = array('id' => $productID, 'qty' => $quantity);
-            //array_push($output, $product);
+        
+        foreach ($products as $product) {
+            $temp = array('id' => $product['id'], 'qty' => $product['quantity']);
+            array_push($output, $temp);
         }
         return json_encode($output);
     }
@@ -135,7 +129,8 @@ class CartController
     {
         if (isset($_GET['addToCart'])) {
             $this->addToCart();
-            $this->view->confirmMsg('Tillagd i varukorgen!');
+            Message::set('Tillagd i varukorgen!');
+            header('Location: ' . $_SERVER["HTTP_REFERER"]);
         } else if (isset($_GET['removeFromCart'])) {
             $this->removeFromCart();
         }

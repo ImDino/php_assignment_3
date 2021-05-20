@@ -1,5 +1,7 @@
 <?php
 
+$serverRoot = SERVER_ROOT;
+
 foreach ($products as $product) {
     extract($product);
     $html = <<<HTML
@@ -13,7 +15,7 @@ foreach ($products as $product) {
                     <p>$description</p>
                     <p>Antal: $quantity</p>
                     <h5>Pris: $price kr</h5>
-                    <a href="cart?removeFromCart=$id" class="btn btn-primary">Ta bort</a>
+                    <a href="$serverRoot/cart?removeFromCart=$id" class="btn btn-primary">Ta bort</a>
                 </div>
             </div>
         </div>
@@ -24,7 +26,7 @@ foreach ($products as $product) {
 
 if ($total) {
     echo "<h2>Totalt: $total</h2>";
-    echo "<a class='btn btn-primary' href='placeOrder'>Beställ</a>";
+    echo "<a class='btn btn-primary' href='$serverRoot/cart/checkout'>Beställ</a>";
 } else {
     echo "Här var det tomt!";
 }

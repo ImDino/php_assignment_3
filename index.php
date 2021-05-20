@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 define('SERVER_ROOT', str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
 
@@ -15,20 +16,15 @@ require_once("controllers/CartController.php");
 require_once("controllers/ProductController.php");
 require_once("controllers/UserController.php");
 
-
-/*
-TODO dela upp metoder i controllers om möjligt, seperation of concerns är mottot.
-TODO sätt absolut path på allt, även form actions (med hjälp av SERVER_ROOT konstanten).
-TODO jämför nuvarande hastighet mot att deklarera alla klassobjekt och kör main i switchen ist.
-*/
-
+// Utils
+require_once("utils/Message.php");
 
 $database   = new Database('uppgift', 'admin', 'nackademin', 'php-assignment-3.cpxa3ccuhmpt.eu-west-1.rds.amazonaws.com');
 $model      = new Model($database);
 $view       = new View();
 
-$url = explode('/', $_GET['url']);
-$path = $url[0] ?? "";
+$path = explode('/', $_GET['url'])[0];
+Message::check();
 
 switch ($path) {
     case "admin":
