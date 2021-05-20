@@ -1,6 +1,8 @@
 <?php
 
 foreach ($products as $product) {
+    $serverRoot = SERVER_ROOT;
+
     extract($product);
     $html = <<<HTML
     <div class="col-md-6">
@@ -12,7 +14,7 @@ foreach ($products as $product) {
                     <h4>$name</h4>
                     <p>$description</p>
                     <h5>Pris: $price kr</h5>
-                    <a href="?addToCart=$id" class="btn btn-primary">Köp</a>
+                    <a href="$serverRoot/cart/?addToCart=$id" class="btn btn-primary">Köp</a>
                 </div>
             </div>
         </div>

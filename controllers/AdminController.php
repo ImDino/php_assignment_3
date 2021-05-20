@@ -14,8 +14,7 @@ class AdminController
     public function main()
     {
         $this->checkIfAdmin();
-        $this->model->createCart();
-        $this->checkMsg();
+        $this->checkMsg();  // TODO ta bort
         $this->router();
     }
 
@@ -45,7 +44,7 @@ class AdminController
         }
     }
 
-    private function checkMsg()
+    private function checkMsg() // TODO ta bort
     {
         $confirmMsg = $_SESSION['confirmMsg'] ?? null;
         

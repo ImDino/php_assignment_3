@@ -11,7 +11,8 @@ require_once("views/View.php");
 
 // Controllers
 require_once("controllers/AdminController.php");
-require_once("controllers/Controller.php");
+require_once("controllers/CartController.php");
+require_once("controllers/ProductController.php");
 require_once("controllers/UserController.php");
 
 
@@ -39,6 +40,9 @@ switch ($path) {
     case "user":
         new UserController($model, $view);
         break;
+    case "cart":
+        new CartController($model, $view);
+        break;
     default:
-        new Controller($model, $view);
+        new ProductController($model, $view);
 }

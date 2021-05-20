@@ -13,14 +13,13 @@ class UserController
 
     public function main()
     {
-        $this->model->createCart();
-        $this->checkMsg();
+        $this->checkMsg();  // TODO ta bort
         $this->router();
     }
 
     private function router()
     {
-        $page = explode('/', $_GET['url'])[1] ?? "";
+        $page = explode('/', $_GET['url'])[1] ?? '';
 
         switch ($page) {
             case 'login':
@@ -37,7 +36,7 @@ class UserController
         }
     }
 
-    private function checkMsg()
+    private function checkMsg()  // TODO ta bort
     {
         $confirmMsg = $_SESSION['confirmMsg'] ?? null;
         
