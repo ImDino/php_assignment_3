@@ -1,4 +1,4 @@
-<form class="mx-auto" action="#" method="post">
+<form class="mx-auto" action="<?php echo SERVER_ROOT?>/admin/create" method="post">
     <input required class="form-control" type="text" name="name" placeholder="Namn">
     <div class="form-group">
         <textarea required class="form-control" id="exampleFormControlTextarea1" rows="5" name="description" placeholder="Beskrivning">

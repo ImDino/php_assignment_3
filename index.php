@@ -17,9 +17,6 @@ require_once("controllers/UserController.php");
 
 
 /*
-TODO cartController - klassvariabel för total - createCart - addToCart - placeOrder m.m.
-NOTE Model är bara för DB, ha checkMsg i en separat utils-fil.
-
 TODO dela upp metoder i controllers om möjligt, seperation of concerns är mottot.
 TODO sätt absolut path på allt, även form actions (med hjälp av SERVER_ROOT konstanten).
 TODO jämför nuvarande hastighet mot att deklarera alla klassobjekt och kör main i switchen ist.

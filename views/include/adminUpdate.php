@@ -1,4 +1,4 @@
-<form action="update?id=<?php echo $id?>" method="post" class="mx-auto">
+<form action="<?php echo SERVER_ROOT?>/admin/update?id=<?php echo $id?>" method="post" class="mx-auto">
     <label for="title">Titel</label>
     <input required class="form-control " type="text" name="name" value="<?= $name ?>">
     

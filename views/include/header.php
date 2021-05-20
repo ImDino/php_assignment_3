@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo SERVER_ROOT?>/styles/style.css?ver=<?php echo time()?>">
 
-    <title><?php echo $title; ?> - PHP Butiken</title>
+    <title><?php echo $title?> - PHP Butiken</title>
 </head>
 
 <?php
@@ -25,7 +25,7 @@ $serverRoot = SERVER_ROOT;
 <body class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="<?php echo SERVER_ROOT?>">PHP Butiken</a>
-        <?php echo $email ? $email : '';?>
+        <?php echo $email ? $email : ''?>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,5 +58,5 @@ $serverRoot = SERVER_ROOT;
             </ul>
         </div>
     </nav>
-    <h2 class="text-center"><?php echo $title; ?></h2>
+    <h2 class="text-center"><?php echo $title?></h2>
     <div class="row">

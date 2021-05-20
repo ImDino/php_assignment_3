@@ -1,4 +1,4 @@
-<form action="login" method="post">
+<form action="<?php echo SERVER_ROOT?>/user/login" method="post">
     <label for="inputEmail" class="visually-hidden">Email address</label>
     <input
         type="email"

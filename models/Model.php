@@ -53,6 +53,7 @@ class Model
         $addProduct = $this->db->update("UPDATE orders SET is_sent = 1  WHERE id = '$id'");
         return $addProduct;
     }
+    
     public function updateOrderUnSend($id)
     {
         $addProduct = $this->db->update("UPDATE orders SET is_sent = 0  WHERE id = '$id'");
@@ -93,12 +94,5 @@ class Model
         $text = stripslashes($text);
         $text = htmlspecialchars($text);
         return $text;
-    }
-
-    public function createCart() {
-        if (isset($_SESSION['cart'])) {
-            return;
-        }
-        $_SESSION['cart'] = array();
     }
 }

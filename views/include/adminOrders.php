@@ -1,4 +1,4 @@
-<div class="show-order-types">
+<div class="show-order-types"> //TODO ändra till absolute path?
     <a href="?page=adminOrders"><button>Alla beställningar</button></a>
     <a href="?page=adminOrders&show=unsent_orders"><button>Oskickade beställningar</button></a>
     <a href="?page=adminOrders&show=sent_orders"><button>Skickade beställning</button></a>
@@ -22,9 +22,9 @@ foreach ($orders as $index => $order) {
     extract($order);
     
     if($is_sent == 0) {
-        $statusBtn = "<a href='?page=adminOrders&action=send&id=$id'>Ändra till skickad</a>";
+        $statusBtn = "<a href='?action=send&id=$id'>Ändra till skickad</a>"; //TODO ändra till absolute path?
     } else {
-        $statusBtn = "<a href='?page=adminOrders&action=unsend&id=$id'>Återkalla</a>";
+        $statusBtn = "<a href='?action=unsend&id=$id'>Återkalla</a>"; //TODO ändra till absolute path?
     }
 
     $html = <<< HTML

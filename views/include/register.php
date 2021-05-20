@@ -1,4 +1,5 @@
-<form action="register" method="post">    
+
+<form action="<?php echo SERVER_ROOT?>/user/register" method="post">    
     <label for="inputEmail" class="visually-hidden">Email</label>
     <input
         type="email"

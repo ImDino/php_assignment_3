@@ -39,7 +39,8 @@ class CartController
         }
     }
 
-    private function addToCart() {
+    private function addToCart()
+    {
         $productID = $_GET['addToCart'];
         
         if (array_key_exists($productID, $this->cart)) {
@@ -48,10 +49,10 @@ class CartController
             $_SESSION['cart'][$productID] = 1;
         }
         $this->updateCart();
-        
     }
     
-    private function removeFromCart() {
+    private function removeFromCart()
+    {
         $productID = $_GET['removeFromCart'];
         
         if (array_key_exists($productID, $this->cart)) {
@@ -106,10 +107,13 @@ class CartController
     private function getProducts()
     {
         $output = array();
-        foreach ($_SESSION['cart'] as $productID => $quantity) {
+
+        foreach ($this->cart as $productID => $quantity) {
             $product = $this->model->fetchOneProduct($productID);
-            array_push($output, $product);
+            $product['quantity'] = $quantity;
             $this->total += $product['price']*$quantity;
+
+            array_push($output, $product);
         }
         return $output;
     }
@@ -117,6 +121,7 @@ class CartController
     private function formatProductsForDB($products)
     {
         $output = array();
+
         foreach ($products as $productID => $value) {
             echo $productID;
             echo $value;
@@ -126,7 +131,8 @@ class CartController
         return json_encode($output);
     }
 
-    private function checkForUpdates() {
+    private function checkForUpdates()
+    {
         if (isset($_GET['addToCart'])) {
             $this->addToCart();
             $this->view->confirmMsg('Tillagd i varukorgen!');
@@ -135,8 +141,17 @@ class CartController
         }
     }
 
-    private function updateCart() {
+    private function updateCart()
+    {
         $this->cart = $_SESSION['cart'];
+    }
+
+    private function createCart()
+    {
+        if (isset($_SESSION['cart'])) {
+            return;
+        }
+        $_SESSION['cart'] = array();
     }
 }
 

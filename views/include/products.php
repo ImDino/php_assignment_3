@@ -1,8 +1,8 @@
 <?php
 
-foreach ($products as $product) {
-    $serverRoot = SERVER_ROOT;
+$serverRoot = SERVER_ROOT;
 
+foreach ($products as $product) {
     extract($product);
     $html = <<<HTML
     <div class="col-md-6">
