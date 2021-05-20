@@ -39,3 +39,11 @@ switch ($path) {
     default:
         new ProductController($model, $view);
 }
+
+/*
+TODO (Dino) göra så sidan minns scroll position
+
+Förslag
+TODO göra så startsidan visar mindre card med mindre bild och utan description på produkten
+TODO detaljsida med stor bild och description
+*/
