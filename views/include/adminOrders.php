@@ -8,11 +8,11 @@
 
 echo "<div class='container'>";
 
-if(isset($_GET['show'])){
+if(isset($_GET['show'])){ //TODO gör en snyggare lösning
     if($_GET['show'] == "unsent_orders") {
         $orders = array_filter($orders, function($x) { return $x['is_sent'] == 0; });
     }
-    if($_GET['show'] == "sent_orders") {
+    else if($_GET['show'] == "sent_orders") {
         $orders = array_filter($orders, function($x) { return $x['is_sent'] == 1; });
     }
     sort($orders);
