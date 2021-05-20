@@ -86,7 +86,7 @@ class CartController
             header('location: '.SERVER_ROOT);
         }
         else if (!$userID) {
-            Message::set('Vänligen logga in för att beställa din order!');
+            Message::set('Vänligen logga in för att beställa!');
             exit(header('location: '.SERVER_ROOT.'/user/login'));
         }
 
@@ -94,7 +94,7 @@ class CartController
         try {
             $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
             $_SESSION['cart'] = array();
-            Message::set('Din order är beställd!');
+            Message::set('Tack för din beställning!');
             header('location: '.SERVER_ROOT);
         } catch (\Throwable $th) {
             Message::printError();
