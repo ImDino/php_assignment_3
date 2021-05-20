@@ -65,7 +65,7 @@ class Model
         return $data ? $data[0] : array(); // REVIEW kan man köra null ist?
     }
 
-    public function userIsValid($user)
+    public function userIsValid($user) // TODO lägg i user controller
     {
         extract($user);
         if (!$first_name || !$last_name || !$email || !$password || strlen($password) < 6 || !filter_var($email, FILTER_VALIDATE_EMAIL) || empty($this->getUser($email))) {

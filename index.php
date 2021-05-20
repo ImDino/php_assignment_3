@@ -14,14 +14,16 @@ require_once("controllers/AdminController.php");
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 
-// Fråga Mahmoud så mycket som möjligt om nedan!
-//TODO kalla på $this->model->createCart(); och checkMsg härifrån??
-//TODO rätt att ha checkMsg som model istället? model såvitt jag vet används för att hantera db o sånt bara?
-//TODO ta reda på hur vi ska rensa alla controllers så mycket som möjligt, be Mahmoud kolla och tipsa hur man brukar dela upp sånt vi har.
-//TODO se till att eventuella trailing slashes tas bort automatiskt, som när man försöker gå till facebook.com/ så blire automatiskt facebook.com
-//TODO man kan även gå till www.localhost(..) istället, det blir då annan session dessutom.
 
-//TODO jämför hastighet med när man deklarerar klassvariabler innan och kör main i switchen.
+/*
+TODO cartController - klassvariabel för total - createCart - addToCart - placeOrder m.m.
+NOTE Model är bara för DB, ha checkMsg i en separat utils-fil.
+
+TODO dela upp metoder i controllers om möjligt, seperation of concerns är mottot.
+TODO sätt absolut path på allt, även form actions (med hjälp av SERVER_ROOT konstanten).
+TODO jämför nuvarande hastighet mot att deklarera alla klassobjekt och kör main i switchen ist.
+*/
+
 
 $database   = new Database('uppgift', 'admin', 'nackademin', 'php-assignment-3.cpxa3ccuhmpt.eu-west-1.rds.amazonaws.com');
 $model      = new Model($database);
