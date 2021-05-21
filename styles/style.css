@@ -1,10 +1,15 @@
 
 
-.body {
+body, html {
+    margin: 0;
+    padding:0;
+}
+
+/* .body {
     display: flex;
     flex-direction: column;
     align-content: center;
-}
+} */
 
 #product-list {
     width: 100%;
@@ -33,6 +38,11 @@
 
 .card:hover{
     border: 1px solid rgb(207, 207, 207);
+}
+
+a, a:hover{
+    color: unset;
+    text-decoration: none;
 }
 
 .message {

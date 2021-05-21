@@ -21,10 +21,25 @@ class ProductController
         $page = $_GET['url'] ?? '';
 
         switch ($page) {
-            // TODO fixa route för productDetails
+            case 'details':
+                $this->details();
+                break;
             default:
                 $this->products();
         }
+    }
+
+    private function details() {
+        $id = $_GET['id'] ?? null;
+        
+        $this->view->header();
+        try {
+            $product = $this->model->fetchOneProduct($id);
+        } catch (\Throwable $th) {
+            Message::printError();
+        }
+        $this->view->productDetails($product);
+        $this->view->footer();
     }
 
     private function products()
@@ -37,9 +52,5 @@ class ProductController
         }
         $this->view->productPage($products);
         $this->view->footer();
-    }
-
-    private function product() {
-        // TODO detaljsida för produkt, med description och större bild m.m.
     }
 }

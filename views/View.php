@@ -2,7 +2,7 @@
 
 class View
 {
-    public function header($title)
+    public function header($title = '')
     {
         include_once('views/include/header.php');
     }
@@ -15,6 +15,11 @@ class View
     public function productPage($products)
     {
         include_once('views/include/products.php');
+    }
+    
+    public function productDetails($product)
+    {
+        include_once('views/include/productDetails.php');
     }
 
     public function loginPage()
