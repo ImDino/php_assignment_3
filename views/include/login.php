@@ -1,23 +1,28 @@
-<form action="<?php echo SERVER_ROOT?>/user/login" method="post">
-    <label for="inputEmail" class="visually-hidden">Email address</label>
-    <input
-        type="email"
-        id="inputEmail"
-        name="email"
-        class="form-control w-50"
-        placeholder="Email address"
-        required autofocus>
-    
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input
-        type="password"
-        id="inputPassword"
-        name="password"
-        class="form-control w-50"
-        placeholder="Password"
-        required>
-    
-    <button class="w-50 btn btn-lg btn-primary mb-2" type="submit">Sign in</button>
-    <p>Not a user?</p>
-    <a class="w-50 btn btn-lg btn-success" href="register">Register</a>
+
+
+
+<form action="<?php echo SERVER_ROOT?>/user/login" method="post" class="d-flex justify-content-center">
+    <div class="w-50">
+        <label for="inputEmail" class="visually-hidden">Epost</label>
+        <input
+            type="email"
+            id="inputEmail"
+            name="email"
+            class="form-control"
+            placeholder="Epost"
+            required autofocus>
+        
+        <label for="inputPassword" class="visually-hidden mt-2">Lösenord</label>
+        <input
+            type="password"
+            id="inputPassword"
+            name="password"
+            class="form-control"
+            placeholder="Lösenord"
+            required>
+        
+        <button class="w-100 btn btn-lg btn-primary mb-2 mt-3" type="submit">Logga in</button>
+        <p class="text-center font-weight-bold mt-2">Ny användare?</p>
+        <a class="w-100 btn btn-lg btn-success" href="register">Skapa konto</a>
+    </div>
 </form>

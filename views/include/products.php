@@ -1,5 +1,7 @@
 <!-- <div class="row d-flex justify-content-center"> -->
+
 <div class="row">
+
 <?php
 
 $serverRoot = SERVER_ROOT;

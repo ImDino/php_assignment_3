@@ -43,6 +43,7 @@ switch ($path) {
 /*
 TODO fixa centrering utan att ensam artikel längst ner är i mitten.
 TODO email och logga in/ut i headern till höger
+TODO Fixa max bredden på former
 
 NOTE mina todos tar jag om det finns tid för det, vi börjar väl med mer övergripande struktur
 TODO (Dino) göra så sidan minns scroll position

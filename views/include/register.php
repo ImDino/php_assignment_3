@@ -1,43 +1,45 @@
 
-<form action="<?php echo SERVER_ROOT?>/user/register" method="post">    
-    <label for="inputEmail" class="visually-hidden">Epost</label>
-    <input
-        type="email"
-        id="inputEmail"
-        name="email"
-        class="form-control"
-        placeholder="Ange Epost"
-        value="<?php echo $_POST['email'] ?? ''?>"
-        required autofocus>
-    
-    <label for="first_name" class="visually-hidden">Förnamn</label>
-    <input
-        type="text"
-        id="first_name"
-        name="first_name"
-        class="form-control"
-        placeholder="Ange förnamn"
-        value="<?php echo $_POST['first_name'] ?? ''?>"
-        required>
+<form action="<?php echo SERVER_ROOT?>/user/register" method="post" class="d-flex justify-content-center">
+    <div class="w-50">
+        <label for="inputEmail" class="visually-hidden mt-2">Epost</label>
+        <input
+            type="email"
+            id="inputEmail"
+            name="email"
+            class="form-control"
+            placeholder="Ange Epost"
+            value="<?php echo $_POST['email'] ?? ''?>"
+            required autofocus>
         
-    <label for="last_name" class="visually-hidden">Efternamn</label>
-    <input
-        type="text"
-        id="last_name"
-        name="last_name"
-        class="form-control"
-        placeholder="Ange efternamn"
-        value="<?php echo $_POST['last_name'] ?? ''?>"
-        required>
+        <label for="first_name" class="visually-hidden mt-2">Förnamn</label>
+        <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            class="form-control"
+            placeholder="Ange förnamn"
+            value="<?php echo $_POST['first_name'] ?? ''?>"
+            required>
+            
+        <label for="last_name" class="visually-hidden mt-2">Efternamn</label>
+        <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            class="form-control"
+            placeholder="Ange efternamn"
+            value="<?php echo $_POST['last_name'] ?? ''?>"
+            required>
+            
+        <label for="password" class="visually-hidden mt-2">Lösenord</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Ange lösenord"
+            required>
         
-    <label for="password" class="visually-hidden">Lösenord</label>
-    <input
-        type="password"
-        id="password"
-        name="password"
-        class="form-control"
-        placeholder="Ange lösenord"
-        required>
-    
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Skapa konto</button>
+        <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Skapa konto</button>
+    </div>
 </form>
