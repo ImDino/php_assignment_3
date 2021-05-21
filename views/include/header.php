@@ -58,5 +58,4 @@ $serverRoot = SERVER_ROOT;
     </div>
 </nav>
 <body class="container">
-<h2 class="text-center"><?php echo $title?></h2>
-<div class="row d-flex justify-content-center">
+    <h2 class="text-center mt-4 mb-5"><?php echo $title?></h2>

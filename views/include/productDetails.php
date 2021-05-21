@@ -6,7 +6,7 @@ extract($product);
 $html = <<<HTML
 <div class="row d-flex justify-content-center align-items-center" style="margin-top: 100px;">
     <div class="col-md-6">
-        <img class="card-img-top" src="$img" alt="$name">
+        <img class="card-img-top mb-5" src="$img" alt="$name">
     </div>
     <div class="col-md-6">
         <h4>$name</h4>

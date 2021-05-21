@@ -41,13 +41,12 @@ switch ($path) {
 }
 
 /*
+TODO fixa centrering utan att ensam artikel längst ner är i mitten.
+TODO email och logga in/ut i headern till höger
 
 NOTE mina todos tar jag om det finns tid för det, vi börjar väl med mer övergripande struktur
 TODO (Dino) göra så sidan minns scroll position
 TODO (Dino) fixa ikoner för knappar (t ex penna för redigera)
 TODO (Dino) kundkorg ikon som animerar och visar en liten siffra 
 
-Förslag
-TODO göra så startsidan visar mindre card med mindre bild och utan description på produkten
-TODO detaljsida med stor bild och description
 */
