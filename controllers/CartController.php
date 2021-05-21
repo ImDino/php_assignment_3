@@ -12,13 +12,12 @@ class CartController
         $this->model = $model;
         $this->view = $view;
         $this->total = 0;
-        $this->cart = $_SESSION['cart'];
+        $this->cart = $_SESSION['cart'] ?? $this->createCart();
         $this->main();
     }
 
     public function main()
     {
-        $this->createCart();
         $this->checkForUpdates();
         $this->router();
     }
@@ -143,10 +142,8 @@ class CartController
 
     private function createCart()
     {
-        if (isset($_SESSION['cart'])) {
-            return;
-        }
         $_SESSION['cart'] = array();
+        return array();
     }
 }
 
