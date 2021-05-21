@@ -22,41 +22,41 @@ $serverRoot = SERVER_ROOT;
 
 ?>
 
-<body class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="<?php echo SERVER_ROOT?>">PHP Butiken</a>
-        <?php echo $email ? $email : ''?>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <?php 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="<?php echo SERVER_ROOT?>">PHP Butiken</a>
+    <?php echo $email ? $email : ''?>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <?php 
 
-                echo !$email 
-                    ?
-                    "<li class='nav-item'>
-                        <a class='nav-link' href='$serverRoot/user/login'>Logga in</a>
-                    </li>"
-                    :
-                    "<li class='nav-item'>
-                        <a class='nav-link' href='$serverRoot/user/logout'>Logga ut</a>
+            echo !$email 
+                ?
+                "<li class='nav-item'>
+                    <a class='nav-link' href='$serverRoot/user/login'>Logga in</a>
+                </li>"
+                :
+                "<li class='nav-item'>
+                    <a class='nav-link' href='$serverRoot/user/logout'>Logga ut</a>
+                </li>";
+            ?>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo SERVER_ROOT?>/cart">Kundkorg</a>
+            </li>
+
+            <?php
+            if ($isAdmin) {
+                echo "<li class='nav-item'>
+                        <a class='nav-link' href='$serverRoot/admin'>Admin</a>
                     </li>";
-                ?>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo SERVER_ROOT?>/cart">Kundkorg</a>
-                </li>
-
-                <?php
-                if ($isAdmin) {
-                    echo "<li class='nav-item'>
-                            <a class='nav-link' href='$serverRoot/admin'>Admin</a>
-                        </li>";
-                }
-                ?>
-            </ul>
-        </div>
-    </nav>
-    <h2 class="text-center"><?php echo $title?></h2>
-    <div class="row">
+            }
+            ?>
+        </ul>
+    </div>
+</nav>
+<body class="container">
+<h2 class="text-center"><?php echo $title?></h2>
+<div class="row">

@@ -1,5 +1,38 @@
+
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+#product-list {
+    width: 100%;
+}
+
+.card-body {
+    position: relative;
+    padding-bottom: 70px;
+}
+
+.cart-add {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+
+.card-text {
+    position: absolute;
+    bottom: 16px;
+    padding-bottom: 4px;
+}
+
+.card{
+    border: 1px solid transparent;
+}
+
 .card:hover{
-    border: none;
+    border: 1px solid rgb(207, 207, 207);
 }
 
 .message {
