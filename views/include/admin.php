@@ -1,10 +1,14 @@
 <div class="col-12 d-flex justify-content-center mb-5">
-    <a href="<?php echo SERVER_ROOT ?>/admin/create">
-        <button class="btn btn-primary mr-2">Lägg till ny produkt</button>
-    </a>
-    <a href="<?php echo SERVER_ROOT ?>/admin/orders">
-        <button class="btn btn-primary">Ordrar</button>
-    </a>
+    <div class="col-6 float-right">
+        <a href="<?php echo SERVER_ROOT ?>/admin/create">
+            <button class="w-75 btn btn-primary ">Lägg till ny produkt</button>
+        </a>
+    </div>
+    <div class="col-6">
+        <a href="<?php echo SERVER_ROOT ?>/admin/orders">
+            <button class="w-75 btn btn-primary">Ordrar</button>
+        </a>
+    </div>
 </div>
 
 <?php
