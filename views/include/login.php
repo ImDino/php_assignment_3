@@ -1,8 +1,8 @@
 
 
 
-<form action="<?php echo SERVER_ROOT?>/user/login" method="post" class="d-flex justify-content-center">
-    <div class="w-50">
+<form action="<?php echo SERVER_ROOT?>/user/login" method="post" class="d-flex justify-content-center col-sm-8 col-md-6 col-lg-4">
+    <div class="w-100">
         <label for="inputEmail" class="visually-hidden">Epost</label>
         <input
             type="email"
@@ -21,7 +21,7 @@
             placeholder="Lösenord"
             required>
         
-        <button class="w-100 btn btn-lg btn-primary mb-2 mt-3" type="submit">Logga in</button>
+        <button class="w-100 btn btn-lg btn-primary mb-2 mt-5" type="submit">Logga in</button>
         <p class="text-center font-weight-bold mt-2">Ny användare?</p>
         <a class="w-100 btn btn-lg btn-success" href="register">Skapa konto</a>
     </div>

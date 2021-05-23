@@ -12,7 +12,7 @@ $html = <<<HTML
         <h4>$name</h4>
         <p class="pr-4">$description</p>
         <h5>Pris: $price kr</h5>
-        <a href="$serverRoot/cart/?addToCart=$id" class="btn btn-primary">Köp</a>
+        <a href="$serverRoot/cart/?addToCart=$id" class="btn btn-primary">Lägg till i varukorgen</a>
     </div>
 </div>
 HTML;

@@ -12,13 +12,12 @@ class CartController
         $this->model = $model;
         $this->view = $view;
         $this->total = 0;
-        $this->cart = $_SESSION['cart'];
+        $this->cart = $_SESSION['cart'] ?? $this->createCart();
         $this->main();
     }
 
     public function main()
     {
-        $this->createCart();
         $this->checkForUpdates();
         $this->router();
     }
@@ -129,8 +128,10 @@ class CartController
     {
         if (isset($_GET['addToCart'])) {
             $this->addToCart();
-            Message::set('Tillagd i varukorgen!');
-            header('Location: ' . $_SERVER["HTTP_REFERER"]);
+            if (!$this->isRequestFromCart()) {
+                Message::set('Tillagd i varukorgen!');
+                exit(header('Location: ' . $_SERVER["HTTP_REFERER"]));
+            }
         } else if (isset($_GET['removeFromCart'])) {
             $this->removeFromCart();
         }
@@ -143,10 +144,13 @@ class CartController
 
     private function createCart()
     {
-        if (isset($_SESSION['cart'])) {
-            return;
-        }
         $_SESSION['cart'] = array();
+        return array();
+    }
+
+    private function isRequestFromCart() {
+        $origin = $_SERVER['HTTP_REFERER'];
+        return strpos($origin, 'cart');
     }
 }
 

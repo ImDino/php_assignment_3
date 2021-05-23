@@ -57,5 +57,8 @@ $serverRoot = SERVER_ROOT;
         </ul>
     </div>
 </nav>
-<body class="container">
-    <h2 class="text-center mt-4 mb-5"><?php echo $title?></h2>
+<body>
+    <div class="d-flex flex-column align-items-center container">
+        <div id="ghost-div"></div>
+        <h2 class="text-center mt-4 mb-5"><?php echo $title?></h2>
+        

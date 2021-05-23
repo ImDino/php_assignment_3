@@ -24,7 +24,6 @@ $model      = new Model($database);
 $view       = new View();
 
 $path = explode('/', $_GET['url'])[0];
-Message::check();
 
 switch ($path) {
     case "admin":
@@ -40,14 +39,19 @@ switch ($path) {
         new ProductController($model, $view);
 }
 
+Message::check();
+
 /*
+TODO större header
+
+TODO ikoner
 TODO fixa centrering utan att ensam artikel längst ner är i mitten.
 TODO email och logga in/ut i headern till höger
 TODO Fixa max bredden på former
 
 NOTE mina todos tar jag om det finns tid för det, vi börjar väl med mer övergripande struktur
-TODO (Dino) göra så sidan minns scroll position
 TODO (Dino) fixa ikoner för knappar (t ex penna för redigera)
-TODO (Dino) kundkorg ikon som animerar och visar en liten siffra 
+TODO (Dino) kundkorg som visar en liten siffra 
+TODO (Dino) göra så sidan minns scroll position
 
 */

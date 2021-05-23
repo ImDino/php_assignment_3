@@ -1,6 +1,6 @@
 
-<form action="<?php echo SERVER_ROOT?>/user/register" method="post" class="d-flex justify-content-center">
-    <div class="w-50">
+<form action="<?php echo SERVER_ROOT?>/user/register" method="post" class="d-flex justify-content-center col-sm-8 col-md-6 col-lg-4">
+    <div class="w-100">
         <label for="inputEmail" class="visually-hidden mt-2">Epost</label>
         <input
             type="email"
@@ -40,6 +40,6 @@
             placeholder="Ange lösenord"
             required>
         
-        <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Skapa konto</button>
+        <button class="w-100 btn btn-lg btn-primary mt-5" type="submit">Skapa konto</button>
     </div>
 </form>
