@@ -1,17 +1,9 @@
 
-
 body, html {
     margin: 0;
     padding:0;
-    /* background-color: #dfdfdf; */
     overflow-y: overlay;
 }
-
-/* .body {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-} */
 
 #ghost-div {
     height: 60px !important;
