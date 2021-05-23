@@ -21,7 +21,7 @@ class Message
     {
         $html = <<< HTML
                 <div class="my-2 alert alert-success message message-animation">
-                    <h4>$text</h4>
+                    <span>$text</span>
                 </div>
                 HTML;
         echo $html;
@@ -31,7 +31,7 @@ class Message
     {
         $html = <<< HTML
                 <div class="my-2 alert alert-danger message message-animation">
-                    <h4>$message</h4>
+                    <span>$message</span>
                 </div>
                 HTML;
         echo $html;
