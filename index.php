@@ -40,18 +40,3 @@ switch ($path) {
 }
 
 Message::check();
-
-/*
-TODO större header
-
-TODO ikoner
-TODO fixa centrering utan att ensam artikel längst ner är i mitten.
-TODO email och logga in/ut i headern till höger
-TODO Fixa max bredden på former
-
-NOTE mina todos tar jag om det finns tid för det, vi börjar väl med mer övergripande struktur
-TODO (Dino) fixa ikoner för knappar (t ex penna för redigera)
-TODO (Dino) kundkorg som visar en liten siffra 
-TODO (Dino) göra så sidan minns scroll position
-
-*/
