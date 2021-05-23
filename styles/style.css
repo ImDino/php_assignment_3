@@ -23,22 +23,29 @@ label {
 }
 
 nav {
-    position: fixed !important;
-    right: 0;
-    left: 0;
+    position: fixed !important ;
     top: 0;
     z-index: 1;
-    height: 60px;
+    width: 100%;
 }
 
 .navbar {
     background-color: rgb(230, 230, 230) !important;
 }
 #navbarNav {
-    margin-top: 2vh;
     background-color: rgb(230, 230, 230);
 }
 
+ul {
+    margin-right: 40px;
+}
+
+#logout {
+    position: relative;
+}
+#email {
+    position: absolute;
+}
 
 #product-list {
     width: 100%;
