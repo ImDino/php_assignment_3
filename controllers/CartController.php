@@ -130,7 +130,7 @@ class CartController
             $this->addToCart();
             if (!$this->isRequestFromCart()) {
                 Message::set('Tillagd i varukorgen!');
-                header('Location: ' . $_SERVER["HTTP_REFERER"]);
+                exit(header('Location: ' . $_SERVER["HTTP_REFERER"]));
             }
         } else if (isset($_GET['removeFromCart'])) {
             $this->removeFromCart();
