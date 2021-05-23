@@ -88,7 +88,7 @@ class AdminController
         if (isset($_GET['action'])) {
             $this->handleOrderAction($id);
         }
-        $this->view->header('Alla ordrar');
+        $this->view->header('Ordrar');
         $orders = $this->model->fetchAllOrders();
         $this->view->adminOrdersPage($orders);
         $this->view->footer();
@@ -110,7 +110,7 @@ class AdminController
             try {
                 $this->model->updateShippingStatus($id, 1);
                 Message::set('Order skickad!');
-                exit(header('location: orders'));
+                exit(header('location: '.$_SERVER["HTTP_REFERER"]));
             } catch (\Throwable $th) {
                 Message::printError();
             }
@@ -119,7 +119,7 @@ class AdminController
             try {
                 $this->model->updateShippingStatus($id, 0);
                 Message::set('Order återkallad!');
-                exit(header('location: orders'));
+                exit(header('location: '.$_SERVER["HTTP_REFERER"]));
             } catch (\Throwable $th) {
                 Message::printError();
             }

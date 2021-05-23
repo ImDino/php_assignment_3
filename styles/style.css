@@ -4,6 +4,7 @@ body, html {
     margin: 0;
     padding:0;
     /* background-color: #dfdfdf; */
+    overflow-y: overlay;
 }
 
 /* .body {
@@ -18,22 +19,24 @@ body, html {
 
 label {
     padding-left: 10px;
+    margin-top: 10px;
 }
 
 nav {
-    padding: 0 !important;
     position: fixed !important;
-    width: 100%;
+    right: 0;
+    left: 0;
     top: 0;
-    height: 60px;
     z-index: 1;
+    height: 60px;
 }
 
 .navbar {
-    /* background-color: rgb(190, 11, 11) !important; */
+    background-color: rgb(230, 230, 230) !important;
 }
 #navbarNav {
-    /* background-color: rgb(190, 11, 11); */
+    margin-top: 2vh;
+    background-color: rgb(230, 230, 230);
 }
 
 

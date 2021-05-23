@@ -1,7 +1,7 @@
 
 <form action="<?php echo SERVER_ROOT?>/user/register" method="post" class="d-flex justify-content-center col-sm-8 col-md-6 col-lg-4">
     <div class="w-100">
-        <label for="inputEmail" class="visually-hidden mt-2">Epost</label>
+        <label for="inputEmail" class="visually-hidden">Epost</label>
         <input
             type="email"
             id="inputEmail"
@@ -11,7 +11,7 @@
             value="<?php echo $_POST['email'] ?? ''?>"
             required autofocus>
         
-        <label for="first_name" class="visually-hidden mt-2">Förnamn</label>
+        <label for="first_name" class="visually-hidden">Förnamn</label>
         <input
             type="text"
             id="first_name"
@@ -21,7 +21,7 @@
             value="<?php echo $_POST['first_name'] ?? ''?>"
             required>
             
-        <label for="last_name" class="visually-hidden mt-2">Efternamn</label>
+        <label for="last_name" class="visually-hidden">Efternamn</label>
         <input
             type="text"
             id="last_name"
@@ -31,7 +31,7 @@
             value="<?php echo $_POST['last_name'] ?? ''?>"
             required>
             
-        <label for="password" class="visually-hidden mt-2">Lösenord</label>
+        <label for="password" class="visually-hidden">Lösenord</label>
         <input
             type="password"
             id="password"

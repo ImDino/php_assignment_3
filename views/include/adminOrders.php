@@ -1,18 +1,18 @@
-<div class="show-order-types">
-    <a href="<?php echo SERVER_ROOT?>/admin/orders?page=adminOrders">
-        <button>Alla beställningar</button>
+<div class="w-100 d-flex justify-content-center mb-5">
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?page=adminOrders" class="col-md-2 btn btn-primary">
+        Alla
     </a>
-    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=unsent_orders">
-        <button>Oskickade beställningar</button>
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=unsent_orders" class="col-md-2 btn btn-primary mr-1 ml-1">
+        Ej skickade
     </a>
-    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=sent_orders">
-        <button>Skickade beställning</button>
+    <a href="<?php echo SERVER_ROOT?>/admin/orders?show=sent_orders" class="col-md-2 btn btn-primary">
+        Skickade
     </a>
 </div>
 
 <?php
 
-echo "<div class='container'>";
+
 
 if (isset($_GET['show'])) {
     if ($_GET['show'] == "unsent_orders") {
@@ -34,18 +34,17 @@ foreach ($orders as $order) {
     }
 
     $html = <<< HTML
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Order nr: $id</h5>
-                        <p class="card-text">Användar ID: $user_id</p>
-                        <p class="card-text">Order datum: $date</p>
-                        <p class="card-text">Totalt: $total</p>
-                        <p class="card-text">Status: $is_sent</p>
+                <div style="width: 18rem;">
+                    <div>
+                        <h5>Order nr: $id</h5>
+                        <p>Användar ID: $user_id</p>
+                        <p>Order datum: $date</p>
+                        <p>Totalt: $total</p>
+                        <p>Status: $is_sent</p>
                         $statusBtn
                     </div>
                 </div>
                 HTML;
     echo $html;
+    echo "<hr  class='w-100'>";
 }
-
-echo "</div>";

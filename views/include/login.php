@@ -12,7 +12,7 @@
             placeholder="Epost"
             required autofocus>
         
-        <label for="inputPassword" class="visually-hidden mt-2">Lösenord</label>
+        <label for="inputPassword" class="visually-hidden">Lösenord</label>
         <input
             type="password"
             id="inputPassword"
