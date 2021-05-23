@@ -57,6 +57,14 @@ a, a:hover{
     z-index: 1;
 }
 
+.bi-pencil-square:hover {
+    fill: #37e640;
+}
+
+.bi-trash:hover {
+    fill: #DA4567;
+}
+
 .message-animation {
     animation: autoHide 2.0s linear;
 }

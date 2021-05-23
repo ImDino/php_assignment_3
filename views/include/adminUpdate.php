@@ -4,9 +4,7 @@
     
     <div class="form-group">
         <label for="Beskrivning">Beskrivning</label>
-        <textarea required class="form-control" id="exampleFormControlTextarea1" name="description" rows="5">
-            <?= $description ?>
-        </textarea>
+        <textarea required class="form-control" id="exampleFormControlTextarea1" name="description" rows="5"><?= $description ?></textarea>
         
         <label for="image">Bild</label>
         <input required class="form-control " type="text" name="img" value="<?= $img ?>">
