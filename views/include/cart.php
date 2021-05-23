@@ -32,7 +32,7 @@ foreach ($products as $product) {
 $checkoutBtn = $user ?
                 "<a class='btn btn-lg btn-success btn-block' style='max-width: 200px;' href='$serverRoot/cart/checkout'>Beställ</a>"
                 :
-                "<a class='btn btn-lg btn-success btn-block disabled' style='max-width: 200px;' href='$serverRoot/cart/checkout'>Logga in för att beställa</a>";
+                "<a class='btn btn-lg btn-success btn-block' style='max-width: 200px;' href='$serverRoot/user/login'>Logga in för att beställa</a>";
 
 if ($total) {
     echo "<div class='d-flex flex-column'>

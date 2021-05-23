@@ -82,7 +82,7 @@ class CartController
         $userID = $_SESSION['id'] ?? null;
         
         if (empty($this->cart)) {
-            header('location: '.SERVER_ROOT);
+            exit(header('location: '.SERVER_ROOT));
         }
         else if (!$userID) {
             Message::set('Vänligen logga in för att beställa!');
