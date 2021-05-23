@@ -1,1 +1,0 @@
-//skapat detta ifall man vill klistra in nuvarande htaccess kod för att temporärt testa saker

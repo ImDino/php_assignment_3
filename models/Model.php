@@ -59,7 +59,7 @@ class Model
         $this->db->insert("DELETE FROM products WHERE id = $id");
     }
     
-    public function newUserIsValid($user) // TODO lägg i user controller
+    public function newUserIsValid($user)
     {
         $error = false;
         extract($user);

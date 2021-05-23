@@ -1,6 +1,4 @@
 
-
-
 <form action="<?php echo SERVER_ROOT?>/user/login" method="post" class="d-flex justify-content-center col-sm-8 col-md-6 col-lg-4">
     <div class="w-100">
         <label for="inputEmail" class="visually-hidden">Epost</label>
