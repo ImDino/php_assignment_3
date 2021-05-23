@@ -4,15 +4,12 @@ class Message
 {
     public static function set($message) {
         $_SESSION['confirmMsg'] = $message;
-        $_SESSION['setFrom'] = $_SERVER['REQUEST_URI'];
     }
 
     public static function check()
     {
-        $confirmMsg = $_SESSION['confirmMsg'] ?? null;
-        
-        if ($confirmMsg && $_SESSION['setFrom'] !== $_SERVER['REQUEST_URI']) {
-            self::print($confirmMsg);
+        if ($_SESSION['confirmMsg']) {
+            self::print($_SESSION['confirmMsg']);
             $_SESSION['confirmMsg'] = null;
         }
     }

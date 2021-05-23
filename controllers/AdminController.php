@@ -39,7 +39,7 @@ class AdminController
                 $this->orders($id);
                 break;
             default:
-                header('location: '.SERVER_ROOT.'/admin');
+                exit(header('location: '.SERVER_ROOT.'/admin'));
         }
     }
 
@@ -77,7 +77,7 @@ class AdminController
         try {
             $this->model->deleteProduct($id);
             Message::set('Artikel borttagen');
-            header('location: '.SERVER_ROOT.'/admin');
+            exit(header('location: '.SERVER_ROOT.'/admin'));
         } catch (\Throwable $th) {
             Message::printError();
         }
@@ -109,7 +109,6 @@ class AdminController
         if ($action == "send") {
             try {
                 $this->model->updateShippingStatus($id, 1);
-                Message::set('Order skickad!');
                 exit(header('location: '.$_SERVER["HTTP_REFERER"]));
             } catch (\Throwable $th) {
                 Message::printError();
@@ -118,7 +117,6 @@ class AdminController
         else if ($action == "unsend") {
             try {
                 $this->model->updateShippingStatus($id, 0);
-                Message::set('Order återkallad!');
                 exit(header('location: '.$_SERVER["HTTP_REFERER"]));
             } catch (\Throwable $th) {
                 Message::printError();

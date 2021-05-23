@@ -94,7 +94,7 @@ class CartController
             $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
             $_SESSION['cart'] = array();
             Message::set('Tack för din beställning!');
-            header('location: '.SERVER_ROOT);
+            exit(header('location: '.SERVER_ROOT));
         } catch (\Throwable $th) {
             Message::printError();
         }

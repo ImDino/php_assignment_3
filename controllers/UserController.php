@@ -31,7 +31,7 @@ class UserController
                 $this->register();
                 break;
             default:
-                header('location: '.SERVER_ROOT);
+                exit(header('location: '.SERVER_ROOT));
         }
     }
     
@@ -54,7 +54,7 @@ class UserController
     {
         $this->unmapUserSession();
         Message::set("Du är nu utloggad!");
-        header('location: '.SERVER_ROOT);
+        exit(header('location: '.SERVER_ROOT));
     }
 
     private function register()
@@ -88,7 +88,7 @@ class UserController
         try {
             $this->model->createUser($_POST);
             Message::set('Ny användare skapad!');
-            header('location: '.SERVER_ROOT.'/user/login');
+            exit(header('location: '.SERVER_ROOT.'/user/login'));
         } catch (Exception $e) {
             $msgToUser = $this->model->errorMsg ?? null;
             
