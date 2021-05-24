@@ -34,7 +34,7 @@ class CartController
                 $this->checkout();
                 break;
             default:
-                header('location: '.SERVER_ROOT);
+                header('location: '.SERVER_ROOT.'/');
         }
     }
 
@@ -82,7 +82,7 @@ class CartController
         $userID = $_SESSION['id'] ?? null;
         
         if (empty($this->cart)) {
-            exit(header('location: '.SERVER_ROOT));
+            exit(header('location: '.SERVER_ROOT.'/'));
         }
         else if (!$userID) {
             Message::set('Vänligen logga in för att beställa!');
@@ -94,7 +94,7 @@ class CartController
             $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
             $_SESSION['cart'] = array();
             Message::set('Tack för din beställning!');
-            exit(header('location: '.SERVER_ROOT));
+            exit(header('location: '.SERVER_ROOT.'/'));
         } catch (\Throwable $th) {
             Message::printError();
         }
