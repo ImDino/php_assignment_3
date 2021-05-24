@@ -89,8 +89,8 @@ class CartController
             exit(header('location: '.SERVER_ROOT.'/user/login'));
         }
 
-        $products = $this->getProducts();
         try {
+            $products = $this->getProducts();
             $this->model->createOrder($userID, $this->formatProductsForDB($products) , $this->total);
             $_SESSION['cart'] = array();
             Message::set('Tack för din beställning!');
@@ -148,7 +148,8 @@ class CartController
         return array();
     }
 
-    private function isRequestFromCart() {
+    private function isRequestFromCart()
+    {
         $origin = $_SERVER['HTTP_REFERER'];
         return strpos($origin, 'cart');
     }

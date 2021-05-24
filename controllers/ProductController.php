@@ -29,7 +29,8 @@ class ProductController
         }
     }
 
-    private function details() {
+    private function details()
+    {
         $id = $_GET['id'] ?? null;
         
         $this->view->header();
