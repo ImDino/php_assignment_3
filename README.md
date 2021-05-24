@@ -9,9 +9,9 @@ Create a webshop where the customer can:
 
 Admin accounts should have access to their own admin panel with the capacity to:
 
-- Create and remove products.
+- Create and delete products.
 - Update existing products.
 - See all orders
 - Change order status to "sent".
 
-This project needs to be carried out using dependency injection (MVC recommended) with no additional frameworks.
+This project has to be carried out using dependency injection (MVC recommended) with no additional frameworks.
