@@ -43,7 +43,7 @@ class UserController
             $this->handleLogin();
         } else if ($isLoggedIn) {
             Message::set("Du är redan inloggad!");
-            exit(header('location: '.SERVER_ROOT));
+            exit(header('location: '.SERVER_ROOT.'/'));
         }
         $this->view->header('Login');
         $this->view->loginPage();
@@ -54,7 +54,7 @@ class UserController
     {
         $this->unmapUserSession();
         Message::set("Du är nu utloggad!");
-        exit(header('location: '.SERVER_ROOT));
+        exit(header('location: '.SERVER_ROOT.'/'));
     }
 
     private function register()
@@ -76,7 +76,7 @@ class UserController
             } else {
                 $this->mapUserSession($user);
                 Message::set("Välkommen $user[first_name]!");
-                exit(header('location: '.SERVER_ROOT));
+                exit(header('location: '.SERVER_ROOT.'/'));
             }
         } catch (\Throwable $th) {
             Message::printError();
