@@ -14,4 +14,6 @@ Admin accounts should have access to their own admin panel with the capacity to:
 - See all orders
 - Change order status to "sent".
 
-You must use dependency injection (MVC recommended) with no additional frameworks.
+You must use dependency injection (MVC recommended).
+
+_Note: frameworks not allowed.
