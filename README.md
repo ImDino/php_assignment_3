@@ -16,4 +16,4 @@ Admin accounts should have access to their own admin panel with the capacity to:
 
 You must use dependency injection (MVC recommended).
 
-_Note: frameworks not allowed.
+_Note: frameworks not allowed._
