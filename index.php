@@ -3,6 +3,11 @@
 session_start();
 define('SERVER_ROOT', str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
 
+//Utils
+require_once("utils/DotEnv.php");
+use DevCoder\DotEnv;
+(new DotEnv(__DIR__ . '/.env'))->load();
+
 // Models
 require_once("models/Database.php");
 require_once("models/Model.php");
@@ -19,7 +24,7 @@ require_once("controllers/UserController.php");
 // Utils
 require_once("utils/Message.php");
 
-$database   = new Database('uppgift', 'admin', 'nackademin', 'php-assignment-3.cpxa3ccuhmpt.eu-west-1.rds.amazonaws.com');
+$database   = new Database(getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASS'), getenv('DB_HOST'));
 $model      = new Model($database);
 $view       = new View();
 
