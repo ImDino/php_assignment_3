@@ -8,8 +8,10 @@ class Message
 
     public static function check()
     {
-        if ($_SESSION['confirmMsg']) {
-            self::print($_SESSION['confirmMsg']);
+        $confirmMsg = $_SESSION['confirmMsg'] ?? null;
+        
+        if ($confirmMsg) {
+            self::print($confirmMsg);
             $_SESSION['confirmMsg'] = null;
         }
     }
